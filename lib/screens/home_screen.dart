@@ -1,4 +1,5 @@
 import 'package:chicktok/services/product_service.dart';
+import 'package:chicktok/services/social_service.dart';
 import 'package:chicktok/widgets/home_product.dart';
 import 'package:chicktok/widgets/home_products.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ProductService _productService = ProductService();
+  SocialService _socialService = SocialService();
   List<Product> _productList = [];
 
   @override
@@ -21,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     _getAllProducts();
+    // _getAllSocial();
   }
 
   void _getAllProducts() async {
@@ -41,6 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
     print(_productList);
+  }
+
+  void _getAllSocial() async {
+    var social = await _socialService.getSocials();
+    var result = json.decode(social.body);
   }
 
   @override

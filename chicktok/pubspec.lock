@@ -49,7 +49,7 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.3"
+    version: "1.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -62,39 +62,32 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_staggered_grid_view:
-    dependency: "direct main"
+  flutter_lints:
+    dependency: "direct dev"
     description:
-      name: flutter_staggered_grid_view
+      name: flutter_lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0"
+    version: "1.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
-  http:
+  get:
     dependency: "direct main"
     description:
-      name: http
+      name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.3"
-  http_parser:
-    dependency: transitive
+    version: "4.3.8"
+  lints:
+    dependency: "direct dev"
     description:
-      name: http_parser
+      name: lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
-  intl:
-    dependency: "direct main"
-    description:
-      name: intl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.0"
+    version: "1.0.1"
   matcher:
     dependency: transitive
     description:
@@ -116,13 +109,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -186,4 +172,3 @@ packages:
     version: "2.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.24.0-6.0.pre"

@@ -23,12 +23,13 @@ class _HomeProductState extends State<HomeProduct> {
   Widget build(BuildContext context) {
     return Container(
       width: (MediaQuery.of(context).size.width * 0.5),
-      height: 210,
+      height: 410,
       child: InkWell(
         onTap: () {},
-        child: Card(
-          child: Padding(
-            padding: EdgeInsets.all(8),
+        child: SizedBox(
+          height: 3000,
+          child: Card(
+            semanticContainer: true,
             child: Column(
               children: <Widget>[
                 Text(this.widget.product.name.toString()),
@@ -37,7 +38,7 @@ class _HomeProductState extends State<HomeProduct> {
                   // this.widget.product.img,
                   Repository().getBaseUrl() + "img/" + this.widget.product.img,
                   width: MediaQuery.of(context).size.width * .5,
-                  height: 80,
+                  // height: 80,
                 ),
                 Text(this.widget.product.stock.toString()),
                 Text(this.widget.product.description.toString())
