@@ -15,117 +15,123 @@ class ProductsView extends GetView<ProductsController> {
       ),
       body: controller.obx((data) => Container(
                 color: Colors.blueGrey[400],
-                child: GridView.builder(
-                    padding: EdgeInsets.all(20),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      crossAxisCount: 2,
-                    ),
-                    itemCount: data.products.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        elevation: 13,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.white, width: .5),
-                            borderRadius: BorderRadius.circular(20)),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Container(
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              // Positioned(
-                              //   child: Text('http://192.168.100.68/chicktok/public/img/'),
-                              // ),
+                child: controller.status == RxStatus.error()
+                    // ? CircularProgressIndicator()
+                    ? Text(RxStatus.error().toString())
+                    : GridView.builder(
+                        padding: EdgeInsets.all(20),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: data.products.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Card(
+                            elevation: 13,
+                            shape: RoundedRectangleBorder(
+                                side:
+                                    BorderSide(color: Colors.white, width: .5),
+                                borderRadius: BorderRadius.circular(20)),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: Container(
+                              child: Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  // Positioned(
+                                  //   child: Text('http://192.168.100.68/chicktok/public/img/'),
+                                  // ),
 
-                              Image.network(
-                                'http://192.168.100.68/chicktok/public/img/${data.products[index].img.toString()}',
-                                // height: 30,
-                                fit: BoxFit.cover,
-                              ),
+                                  Image.network(
+                                    'http://192.168.100.68/chicktok/public/img/${data.products[index].img.toString()}',
+                                    // height: 30,
+                                    fit: BoxFit.cover,
+                                  ),
 
-                              Container(
-                                color: Colors.black.withOpacity(.6),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
+                                  Container(
+                                    color: Colors.black.withOpacity(.6),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Flexible(
-                                            child: Text(
-                                              data.products[index].name
-                                                  .toString(),
-                                              style: InventoryCardsText()
-                                                  .copyWith(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 14),
-                                              // textAlign: TextAlign.center,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  data.products[index].name
+                                                      .toString(),
+                                                  style: InventoryCardsText()
+                                                      .copyWith(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 14),
+                                                  // textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            "P${data.products[index].price.toString()}",
+                                            style:
+                                                InventoryCardsText().copyWith(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize: 20,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      Text(
-                                        "P${data.products[index].price.toString()}",
-                                        style: InventoryCardsText().copyWith(
-                                          fontWeight: FontWeight.w100,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      Divider(
-                                        color: Colors.white,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'STOCKS: 35',
-                                            style:
-                                                InventoryCardsText().copyWith(),
+                                          Divider(
+                                            color: Colors.white,
                                           ),
-                                          Text(
-                                            'Fresh: 35   |   Cooked: 4',
-                                            style: InventoryCardsText()
-                                                .copyWith(fontSize: 8),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'STOCKS: 35',
+                                                style: InventoryCardsText()
+                                                    .copyWith(),
+                                              ),
+                                              Text(
+                                                'Fresh: 35   |   Cooked: 4',
+                                                style: InventoryCardsText()
+                                                    .copyWith(fontSize: 8),
+                                              )
+                                            ],
+                                          ),
+                                          Divider(
+                                            color: Colors.white,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Sales: 35',
+                                                style: InventoryCardsText()
+                                                    .copyWith(),
+                                              ),
+                                            ],
                                           )
+                                          // Text(data.products[index].description.toString()),
                                         ],
                                       ),
-                                      Divider(
-                                        color: Colors.white,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Sales: 35',
-                                            style:
-                                                InventoryCardsText().copyWith(),
-                                          ),
-                                        ],
-                                      )
-                                      // Text(data.products[index].description.toString()),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        // subtitle: Text(data.products[index].description.to ,
-                        // title: Text(data.products[index].name.toString()),
-                        // subtitle: Text(data.products[index].description.toString()),
-                        // trailing: Text(data.products[index].price.toString()),
-                        // onTap: () => print(data.products[index].name.toString()),
-                      );
-                    }),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            // subtitle: Text(data.products[index].description.to ,
+                            // title: Text(data.products[index].name.toString()),
+                            // subtitle: Text(data.products[index].description.toString()),
+                            // trailing: Text(data.products[index].price.toString()),
+                            // onTap: () => print(data.products[index].name.toString()),
+                          );
+                        }),
               )
           // (state) => null
           ),

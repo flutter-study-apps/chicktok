@@ -5,6 +5,8 @@ class ProductsController extends GetxController with StateMixin {
   //TODO: Implement ProductsController
 
   final count = 0.obs;
+  var isLoading = true.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -13,7 +15,10 @@ class ProductsController extends GetxController with StateMixin {
       change(value, status: RxStatus.success());
     }, onError: (err) {
       print(err);
-      change(null, status: RxStatus.error(err.toString()));
+
+      // ProductProvider().getProducts();
+
+      // change(null, status: RxStatus.error(err.toString()));
     });
   }
 

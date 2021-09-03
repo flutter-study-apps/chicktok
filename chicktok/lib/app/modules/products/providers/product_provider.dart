@@ -7,14 +7,7 @@ class ProductProvider extends GetConnect {
   void onInit() {
     httpClient.defaultContentType = "application/json";
     httpClient.timeout = Duration(seconds: 20);
-    httpClient.maxAuthRetries = 3;
-    httpClient.addAuthenticator((request) async {
-      final response = await get("http://192.168.100.68/chicktok/public/api");
-      final token = response.body[
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvY2hpY2t0b2suY29tXC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjI5NDY0NTA2LCJleHAiOjE2Mjk0NjgxMDYsIm5iZiI6MTYyOTQ2NDUwNiwianRpIjoidDlLN25NMGlURFhzSjgweSIsInN1YiI6MSwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.N7Mw3DVEyv6jR8CT6ARIurdKIjBxF5Bw3srz4bMELas'];
-      request.headers['Authorization'] = "$token";
-      // return request;
-    });
+
     httpClient.defaultDecoder = (map) {
       if (map is Map<String, dynamic>) return Products.fromJson(map);
       if (map is List)

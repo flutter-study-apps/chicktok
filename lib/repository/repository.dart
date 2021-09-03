@@ -6,7 +6,13 @@ class Repository {
       "https://gist.githubusercontent.com/ialexies/9f93810596f512878579e84ce6133545/raw/b0c9dca2b289a3eca7ef5e36d4a439b06c976716/gistfile1.json";
 
   httpGet({String api}) async {
-    return await http.get(Uri.parse(_BaseUrl + "api/" + api));
+    try {
+      return await http.get(Uri.parse(_BaseUrl + "api/" + api));
+    } catch (e) {
+      return e;
+    }
+
+    // return response;
   }
 
   getBaseUrl() {

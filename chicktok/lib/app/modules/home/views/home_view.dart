@@ -19,7 +19,7 @@ class HomeView extends GetView<HomeController> {
           padding: const EdgeInsets.all(20),
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          crossAxisCount: 2,
+          crossAxisCount: 3,
           children: <Widget>[
             GestureDetector(
               onTap: () => Get.toNamed(Routes.PRODUCTS),
@@ -34,6 +34,15 @@ class HomeView extends GetView<HomeController> {
               padding: const EdgeInsets.all(8),
               child: const Text('POS'),
               // color: Colors.teal[200],
+            ),
+            GestureDetector(
+              onTap: () => Get.toNamed(Routes.LOGIN),
+              child: Container(
+                decoration: BoxDecoration(color: Colors.cyan),
+                padding: const EdgeInsets.all(8),
+                child: const Text('Login'),
+                // color: Colors.teal[200],
+              ),
             ),
           ],
         ),

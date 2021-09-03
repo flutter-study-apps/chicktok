@@ -28,7 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _getAllProducts() async {
     var products = await _productService.getProducts();
-    var result = json.decode(products.body);
+    // var result = json.decode(products.body);
+    var result = products;
 
     result["data"].forEach((data) {
       var model = Product();
@@ -59,20 +60,22 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: <Widget>[],
       ),
       body: Container(
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                'Products',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            HomeProducts(
-              productList: _productList,
-            )
-          ],
-        ),
+        child: _productList.isNotEmpty
+            ? ListView(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      'Products',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  HomeProducts(
+                    productList: _productList,
+                  )
+                ],
+              )
+            : LinearProgressIndicator(),
       ),
     );
   }
