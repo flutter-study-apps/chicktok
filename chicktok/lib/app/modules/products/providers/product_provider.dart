@@ -16,14 +16,17 @@ class ProductProvider extends GetConnect {
     // httpClient.baseUrl = 'http://192.168.100.68/chicktok/public/api/';
   }
 
-  Future<Products?> getProducts() async {
+  Future<Products> getProducts() async {
     // final response = await get('products');
     final response =
         await get('http://192.168.100.68/chicktok/public/api/products');
     if (response.hasError) {
+      print('error in getproducts ');
       print(response.statusCode);
       return Future.error(response.status);
     } else {
+      print('error in getproducts ');
+      print(response.body);
       Map<String, dynamic> body = response.body;
       return Products.fromJson(response.body);
       // return  Product() response.body;

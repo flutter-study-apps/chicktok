@@ -1,3 +1,4 @@
+import 'package:chicktok/app/modules/products/product_model.dart';
 import 'package:chicktok/app/modules/products/providers/product_provider.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,29 @@ class ProductsController extends GetxController with StateMixin {
 
       // change(null, status: RxStatus.error(err.toString()));
     });
+  }
+
+  Stream<Products> productStream() async* {
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 500));
+
+      try {
+        // Products someProduct = await ProductProvider().getProducts();
+
+        var response = await ProductProvider().getProducts();
+        // Map<String, dynamic> mappedResponseBody = response;
+        // return Products.fromJson(response.body);
+        // Product someProduct =
+
+        print('api good');
+        // yield someProduct;
+        yield response;
+        // yield Products.fromJson(mappedResponseBody);
+      } catch (e) {
+        print('api error');
+        // throw FormatException();
+      }
+    }
   }
 
   @override
