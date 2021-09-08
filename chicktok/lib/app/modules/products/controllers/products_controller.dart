@@ -10,6 +10,7 @@ class ProductsController extends GetxController with StateMixin {
   final count = 0.obs;
   var isLoading = true.obs;
   var productStreamControllerController = StreamController<Products>().obs;
+  var products = Products().obs;
   // final test = productStream().s
   @override
   void dispose() {
@@ -20,14 +21,15 @@ class ProductsController extends GetxController with StateMixin {
   @override
   void onInit() {
     super.onInit();
+    productStreamControllerController.value.addStream(productStream());
+    // ProductProvider().getProducts().then((value) {
+    //   productStreamControllerController.value.addStream(productStream());
+    //   change(value, status: RxStatus.success());
+    // }, onError: (err) {
+    //   print(err);
+    // });
 
-    ProductProvider().getProducts().then((value) {
-      // change is provided by StateMixin
-      productStreamControllerController.value.addStream(productStream());
-      change(value, status: RxStatus.success());
-    }, onError: (err) {
-      print(err);
-    });
+    // change(value, status: RxStatus.success());
   }
 
   Stream<Products> productStream() async* {
@@ -46,10 +48,14 @@ class ProductsController extends GetxController with StateMixin {
         // print(body);
         // Products.fromJson(body);
         Products currentProduct = Products.fromJson(body);
+        products.value = currentProduct;
+        isLoading.value = false;
 
-        yield currentProduct;
+        // yield currentProduct;
       } catch (e) {
         print('api error stream');
+        isLoading.value = true;
+        // products.value = "";
         printError();
         // productStreamControllerController.
         // throw Exception();
@@ -67,5 +73,4 @@ class ProductsController extends GetxController with StateMixin {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }
