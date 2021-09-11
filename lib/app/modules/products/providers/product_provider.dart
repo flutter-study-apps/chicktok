@@ -10,27 +10,20 @@ class ProductProvider extends GetConnect {
 
     httpClient.defaultDecoder = (map) {
       if (map is Map<String, dynamic>) return Products.fromJson(map);
-      if (map is List)
+      if (map is List) {
         return map.map((item) => Products.fromJson(item)).toList();
+      }
     };
-    // httpClient.baseUrl = 'http://192.168.100.68/chicktok/public/api/';
   }
 
   Future<dynamic> getProducts() async {
-    // final response = await get('products');
     final response =
         await get('http://192.168.100.68/chicktok/public/api/products');
     if (response.hasError) {
-      print('error in getproducts  provider');
-      print(response.statusCode);
-      return Future.error(response.status);
+      return response;
     } else {
       print('good api in getproducts provider');
-
       return response.body;
-
-      // Map<String, dynamic> body = response.body;
-      // return Products.fromJson(response.body);
     }
   }
 

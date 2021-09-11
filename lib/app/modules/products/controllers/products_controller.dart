@@ -9,13 +9,19 @@ class ProductsController extends GetxController with StateMixin {
 
   final count = 0.obs;
   var isLoading = true.obs;
+  var isStreamOn = true.obs;
   var productStreamControllerController = StreamController<Products>().obs;
   var products = Products().obs;
+
   // final test = productStream().s
   @override
   void dispose() {
+    onClose();
+    isStreamOn.value = false;
+    productStreamControllerController.value.done;
+    productStreamControllerController.value.close();
     super.dispose();
-    productStreamControllerController.close();
+    // productStreamControllerController.close();
   }
 
   @override
@@ -33,36 +39,27 @@ class ProductsController extends GetxController with StateMixin {
   }
 
   Stream<Products> productStream() async* {
-    while (true) {
-      await Future.delayed(Duration(milliseconds: 1000));
+    while (isStreamOn.value == true) {
+      await Future.delayed(Duration(milliseconds: 500));
 
       try {
-        // Products someProduct = await ProductProvider().getProducts();
-
         var response = await ProductProvider().getProducts();
-
-        print('api good in stream');
-        print(" Updated Data at ${DateTime.now()} from server");
-
         Map<String, dynamic> body = response;
-        // print(body);
-        // Products.fromJson(body);
         Products currentProduct = Products.fromJson(body);
         products.value = currentProduct;
         isLoading.value = false;
-
-        // yield currentProduct;
       } catch (e) {
-        print('api error stream');
         isLoading.value = true;
-        // products.value = "";
-        printError();
-        // productStreamControllerController.
-        // throw Exception();
-        // throw Exception('Intentional exception');
-        // return;
-        // throw FormatException();
       }
+
+      // ProductProvider().getProducts().then((response) {
+      //   Map<String, dynamic> body = response;
+      //   Products currentProduct = Products.fromJson(body);
+      //   products.value = currentProduct;
+      //   isLoading.value = false;
+      // }).catchError((err) {
+      //   isLoading.value = true;
+      // });
     }
   }
 
@@ -71,6 +68,6 @@ class ProductsController extends GetxController with StateMixin {
     super.onReady();
   }
 
-  @override
-  void onClose() {}
+  // @override
+  // void onClose() {}
 }
