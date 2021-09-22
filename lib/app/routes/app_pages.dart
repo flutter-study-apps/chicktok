@@ -1,3 +1,4 @@
+import 'package:chicktok/app/modules/middleware/first_middleware.dart';
 import 'package:get/get.dart';
 
 import 'package:chicktok/app/modules/home/bindings/home_binding.dart';
@@ -12,13 +13,15 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.LOGIN;
+  // static const INITIAL = Routes.PRODUCTS;
 
   static final routes = [
     GetPage(
       name: _Paths.HOME,
       page: () => HomeView(),
       binding: HomeBinding(),
+      // middlewares: [FirstMiddleware()],
     ),
     GetPage(
       name: _Paths.PRODUCTS,

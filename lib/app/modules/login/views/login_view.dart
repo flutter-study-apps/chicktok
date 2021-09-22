@@ -44,7 +44,15 @@ class LoginView extends GetView<LoginController> {
                             controller.signin(
                                 controller.userNameController.value.text,
                                 controller.passwordNameController.value.text);
-                          }))
+                          })),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "Connection Type: ${controller.connectivityType.value}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(),
+                  )
                 ]))),
     );
   }
