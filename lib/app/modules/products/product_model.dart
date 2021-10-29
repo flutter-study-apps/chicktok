@@ -36,18 +36,27 @@ class Product {
   String? name;
   String? description;
   int? price;
-  int? stock;
+  // int? stock;
+  double? qtyRaw;
+  double? qtyCook;
   String? img;
 
   Product(
-      {this.id, this.name, this.description, this.price, this.stock, this.img});
+      {this.id,
+      this.name,
+      this.description,
+      this.price,
+      this.qtyRaw,
+      this.qtyCook,
+      this.img});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
     price = json['price'];
-    stock = json['stock'];
+    qtyRaw = json['qty_raw'].toDouble();
+    qtyCook = json['qty_cook'].toDouble();
     img = json['img'];
   }
 
@@ -57,7 +66,6 @@ class Product {
     data['name'] = name;
     data['description'] = description;
     data['price'] = price;
-    data['stock'] = stock;
     data['img'] = img;
     return data;
   }

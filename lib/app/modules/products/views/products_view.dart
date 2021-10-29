@@ -110,12 +110,13 @@ class ProductsView extends GetView<ProductsController> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'STOCKS: ${controller.products.value.products![index].stock.toString()}',
+                                              // 'STOCKS: ${controller.products.value.products![index].qtyRaw}',
+                                              'STOCKS: ${controller.products.value.products![index].qtyRaw! + controller.products.value.products![index].qtyCook!}',
                                               style: InventoryCardsText()
                                                   .copyWith(),
                                             ),
                                             Text(
-                                              'Fresh: 35   |   Cooked: 4',
+                                              'Fresh: ${controller.products.value.products![index].qtyRaw!}   |   Cooked: ${controller.products.value.products![index].qtyCook!}',
                                               style: InventoryCardsText()
                                                   .copyWith(fontSize: 8),
                                             )
