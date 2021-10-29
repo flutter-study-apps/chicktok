@@ -1,5 +1,7 @@
 import 'dart:async';
-
+// import 'package:dotenv/dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:chicktok/app/modules/products/product_model.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +62,7 @@ class ProductsView extends GetView<ProductsController> {
 
                                 Image.network(
                                   // 'http://192.168.100.68/chicktok/public/img/${data.products[index].img.toString()}',
-                                  'http://192.168.100.68/chicktok/public/img/${controller.products.value.products![index].img.toString()}',
+                                  '${FlutterConfig.get("SERVER_ADDRESS")}/img/${controller.products.value.products![index].img.toString()}',
                                   // height: 30,
                                   fit: BoxFit.cover,
                                 ),

@@ -28,14 +28,6 @@ class ProductsController extends GetxController with StateMixin {
   void onInit() {
     super.onInit();
     productStreamControllerController.value.addStream(productStream());
-    // ProductProvider().getProducts().then((value) {
-    //   productStreamControllerController.value.addStream(productStream());
-    //   change(value, status: RxStatus.success());
-    // }, onError: (err) {
-    //   print(err);
-    // });
-
-    // change(value, status: RxStatus.success());
   }
 
   Stream<Products> productStream() async* {

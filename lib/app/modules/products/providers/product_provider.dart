@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_config/flutter_config.dart';
 import '../product_model.dart';
 
 class ProductProvider extends GetConnect {
@@ -17,8 +18,9 @@ class ProductProvider extends GetConnect {
   }
 
   Future<dynamic> getProducts() async {
-    final response =
-        await get('http://192.168.100.68/chicktok/public/api/products');
+    // String api = '${dotenv.env['SERVER_ADDRESS']}/chicktok/public/api/products';
+    String api = '${FlutterConfig.get("SERVER_ADDRESS")}/api/products';
+    final response = await get(api);
     if (response.hasError) {
       return response;
     } else {
