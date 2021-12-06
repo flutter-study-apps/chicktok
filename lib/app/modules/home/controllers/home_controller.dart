@@ -5,25 +5,22 @@ class HomeController extends GetxController {
   //TODO: Implement HomeController
 
   var tabIndex = 0.obs;
-  // final PageController pageController = PageController(initialPage: 0);
   var pageController = PageController(initialPage: 0).obs;
-
-//  PageController controller = PageController(initialPage: 0);
 
   onPageChanged(int index) {
     tabIndex.value = index;
+    // update();
   }
 
   onItemTapped(int index) {
-    // tabIndex.value = index;
+    tabIndex.value = index;
     pageController.value.jumpToPage(index);
-    // print(tabIndex.value);
     print(pageController.value.page);
+    print(tabIndex.value);
+    // update();
   }
 
-  test() {
-    print('fdf');
-  }
+
 
   final count = 0.obs;
   @override
