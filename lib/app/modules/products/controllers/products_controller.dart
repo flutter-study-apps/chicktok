@@ -13,6 +13,7 @@ class ProductsController extends GetxController with StateMixin {
   var productStreamControllerController = StreamController<Products>().obs;
   var products = Products().obs;
 
+
   // final test = productStream().s
   @override
   void dispose() {
@@ -29,6 +30,7 @@ class ProductsController extends GetxController with StateMixin {
     super.onInit();
     productStreamControllerController.value.addStream(productStream());
   }
+  
 
   Stream<Products> productStream() async* {
     while (isStreamOn.value == true) {

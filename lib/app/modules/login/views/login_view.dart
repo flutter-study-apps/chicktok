@@ -9,6 +9,9 @@ import 'package:flutter/widgets.dart';
 import 'package:chicktok/app/data/providers/auth_response_provider.dart';
 
 class LoginView extends GetView<LoginController> {
+
+  LoginController loginController = Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +26,7 @@ class LoginView extends GetView<LoginController> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter),
           ),
-          child: controller.isLoading.value
+          child: loginController.isLoading.value
               ? Text('Logged Out')
               : ListView(children: [
                   headerSection(),
@@ -41,15 +44,16 @@ class LoginView extends GetView<LoginController> {
                                   MaterialStateProperty.all(Colors.purple)),
                           child: Text('Login'),
                           onPressed: () {
-                            controller.signin(
-                                controller.userNameController.value.text,
-                                controller.passwordNameController.value.text);
+                            loginController.signin(
+                                loginController.userNameController.value.text,
+                                loginController
+                                    .passwordNameController.value.text);
                           })),
                   SizedBox(
                     height: 30,
                   ),
                   Text(
-                    "Connection Type: ${controller.connectivityType.value}",
+                    "Connection Type: ${loginController.connectivityType.value}",
                     textAlign: TextAlign.center,
                     style: TextStyle(),
                   )
@@ -75,7 +79,7 @@ class LoginView extends GetView<LoginController> {
       child: Column(
         children: <Widget>[
           TextFormField(
-            controller: controller.userNameController.value,
+            controller: loginController.userNameController.value,
             cursorColor: Colors.white,
             style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
@@ -87,7 +91,7 @@ class LoginView extends GetView<LoginController> {
                 hintStyle: TextStyle(color: Colors.white70)),
           ),
           TextFormField(
-            controller: controller.passwordNameController.value,
+            controller: loginController.passwordNameController.value,
             obscureText: true,
             cursorColor: Colors.white,
             style: TextStyle(color: Colors.white),
