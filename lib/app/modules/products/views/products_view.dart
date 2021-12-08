@@ -22,7 +22,8 @@ class ProductsView extends GetView<ProductsController> {
       // ),
       body: Obx(() => Container(
           // color: Colors.blueGrey[400],
-          color: Colors.blueGrey[400],
+          // color: Colors.blueGrey[400],
+          color: Colors.amber,
           width: double.infinity,
           child: productController.isLoading.value == true
               ? Column(
@@ -49,8 +50,6 @@ class ProductsView extends GetView<ProductsController> {
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        print('fdfd');
-
                         Get.defaultDialog(
                           title:
                               "${productController.products.value.products![index].name.toString().toUpperCase()}",
@@ -75,14 +74,8 @@ class ProductsView extends GetView<ProductsController> {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              // Positioned(
-                              //   child: Text('http://192.168.100.68/chicktok/public/img/'),
-                              // ),
-
                               Image.network(
-                                // 'http://192.168.100.68/chicktok/public/img/${data.products[index].img.toString()}',
                                 '${FlutterConfig.get("SERVER_ADDRESS")}/img/${productController.products.value.products![index].img.toString()}',
-                                // height: 30,
                                 fit: BoxFit.cover,
                               ),
 

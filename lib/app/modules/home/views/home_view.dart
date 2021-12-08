@@ -1,7 +1,8 @@
+import 'package:chicktok/app/modules/delivery/views/delivery_view.dart';
 import 'package:chicktok/app/modules/login/views/login_view.dart';
-import 'package:chicktok/app/modules/products/product_model.dart';
 import 'package:chicktok/app/modules/products/views/products_view.dart';
-import 'package:chicktok/app/routes/app_pages.dart';
+import 'package:chicktok/app/modules/report/views/report_view.dart';
+import 'package:chicktok/app/modules/setting/views/setting_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -15,40 +16,43 @@ class HomeView extends GetView<HomeController> {
 
     return Obx(() => Scaffold(
           appBar: AppBar(
-            title: Text('HomeView ${controller.tabIndex.value}'),
+            backgroundColor: Colors.black,
+            title: Text('Chicktok Inventory System'),
             centerTitle: true,
           ),
           body: PageView(
             children: [
               ProductsView(),
-              // ProductsView(),
-              LoginView(),
-              ProductsView(),
+              DeliveryView(),
+              ReportView(),
+              SettingView(),
             ],
             controller: controller.pageController.value,
-            // pageSnapping: false,
             // physics: NeverScrollableScrollPhysics(),
 
             onPageChanged: controller.onPageChanged(controller.tabIndex.value),
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.cyanAccent,
             unselectedItemColor: Colors.black,
             onTap: controller.onItemTapped,
             currentIndex: controller.tabIndex.value,
             selectedItemColor: Colors.amber[800],
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.storefront),
                 label: 'Products',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.sports),
+                icon: Icon(Icons.local_shipping),
                 label: 'Delivery',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.cabin),
-                label: 'Notes',
+                icon: Icon(Icons.inventory_outlined),
+                label: 'Sales Report',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Setgings',
               ),
             ],
           ),

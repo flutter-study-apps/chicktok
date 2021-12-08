@@ -31,6 +31,7 @@ class ProductsController extends GetxController with StateMixin {
     productStreamControllerController.value.addStream(productStream());
   }
   
+  
 
   Stream<Products> productStream() async* {
     while (isStreamOn.value == true) {
