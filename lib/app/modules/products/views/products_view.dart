@@ -15,14 +15,9 @@ class ProductsView extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.black87,
-      //   title: Text('Product Inventory '),
-      //   centerTitle: true,
-      // ),
+
       body: Obx(() => Container(
-          // color: Colors.blueGrey[400],
-          // color: Colors.blueGrey[400],
+    
           color: Colors.amber,
           width: double.infinity,
           child: productController.isLoading.value == true
