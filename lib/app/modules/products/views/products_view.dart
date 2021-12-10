@@ -14,9 +14,8 @@ class ProductsView extends GetView<ProductsController> {
   ProductsController productController = Get.put(ProductsController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: Obx(() => Container(
+    return Obx(
+      () => Container(
     
           color: Colors.amber,
           width: double.infinity,
@@ -152,7 +151,7 @@ class ProductsView extends GetView<ProductsController> {
                         ),
                       ),
                     );
-                  }))),
+                  })),
     );
   }
 

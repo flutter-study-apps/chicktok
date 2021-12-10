@@ -15,6 +15,7 @@ class HomeView extends GetView<HomeController> {
     var width = MediaQuery.of(context).size.width;
 
     return Obx(() => Scaffold(
+       resizeToAvoidBottomInset: false, 
           appBar: AppBar(
             backgroundColor: Colors.black,
             title: Text('Chicktok Inventory System'),
