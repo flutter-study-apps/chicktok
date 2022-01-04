@@ -1,3 +1,4 @@
+import 'package:chicktok/app/modules/delivery/views/delivery_list.dart';
 import 'package:get/get.dart';
 
 import 'package:chicktok/app/modules/delivery/bindings/delivery_binding.dart';
@@ -43,6 +44,11 @@ class AppPages {
     GetPage(
       name: _Paths.DELIVERY,
       page: () => DeliveryView(),
+      binding: DeliveryBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERYLIST,
+      page: () => DeliveryListView(),
       binding: DeliveryBinding(),
     ),
     GetPage(

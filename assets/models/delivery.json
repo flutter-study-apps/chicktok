@@ -1,0 +1,62 @@
+
+    {
+      "id": 2,
+      "deliveredBy": "Bea Dultra",
+      "recievedBy": "Arnold",
+      "changeFund": 2600,
+      "note": "note lang sample 2",
+      "createdAt": "2021-12-17T00:42:55.000000Z",
+      "products": [
+        {
+          "id": 1,
+          "created_at": "2021-12-17T00:42:55.000000Z",
+          "updated_at": "2021-12-17T00:42:55.000000Z",
+          "name": "Roast Chicken",
+          "description": "Roasted chicken and marinated using secret ingredients",
+          "price": 22511,
+          "qty_raw": 30,
+          "qty_cook": 4,
+          "img": "product-roast-chicken.jpg",
+          "pivot": {
+            "delivery_id": 2,
+            "product_id": 1,
+            "quantity": 20,
+            "created_at": null
+          }
+        },
+        {
+          "id": 3,
+          "created_at": "2021-12-17T00:42:55.000000Z",
+          "updated_at": "2021-12-17T00:42:55.000000Z",
+          "name": "Fried Neck",
+          "description": "Short Description of the product",
+          "price": 15,
+          "qty_raw": 20,
+          "qty_cook": 2,
+          "img": "41148.jpg",
+          "pivot": {
+            "delivery_id": 2,
+            "product_id": 3,
+            "quantity": 10,
+            "created_at": null
+          }
+        },
+        {
+          "id": 4,
+          "created_at": "2021-12-17T00:42:55.000000Z",
+          "updated_at": "2021-12-17T00:42:55.000000Z",
+          "name": "Balat",
+          "description": "Short Description of the product",
+          "price": 10,
+          "qty_raw": 30,
+          "qty_cook": 2,
+          "img": "40952.jpg",
+          "pivot": {
+            "delivery_id": 2,
+            "product_id": 4,
+            "quantity": 40,
+            "created_at": null
+          }
+        }
+      ]
+    }

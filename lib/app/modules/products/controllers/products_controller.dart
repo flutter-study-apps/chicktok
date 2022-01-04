@@ -13,7 +13,6 @@ class ProductsController extends GetxController with StateMixin {
   var productStreamControllerController = StreamController<Products>().obs;
   var products = Products().obs;
 
-
   // final test = productStream().s
   @override
   void dispose() {
@@ -30,31 +29,21 @@ class ProductsController extends GetxController with StateMixin {
     super.onInit();
     productStreamControllerController.value.addStream(productStream());
   }
-  
-  
 
   Stream<Products> productStream() async* {
     while (isStreamOn.value == true) {
       await Future.delayed(Duration(milliseconds: 500));
 
       try {
+        // print('product streaming');
         var response = await ProductProvider().getProducts();
-        Map<String, dynamic> body = response;
+        Map<String, dynamic> body = response.body;
         Products currentProduct = Products.fromJson(body);
         products.value = currentProduct;
         isLoading.value = false;
       } catch (e) {
         isLoading.value = true;
       }
-
-      // ProductProvider().getProducts().then((response) {
-      //   Map<String, dynamic> body = response;
-      //   Products currentProduct = Products.fromJson(body);
-      //   products.value = currentProduct;
-      //   isLoading.value = false;
-      // }).catchError((err) {
-      //   isLoading.value = true;
-      // });
     }
   }
 

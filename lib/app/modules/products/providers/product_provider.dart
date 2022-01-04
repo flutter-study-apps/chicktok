@@ -24,8 +24,8 @@ class ProductProvider extends GetConnect {
     if (response.hasError) {
       return response;
     } else {
-      print('good api in getproducts provider');
-      return response.body;
+      // print('good api in getproducts provider');
+      return response;
     }
   }
 
