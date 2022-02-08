@@ -5,12 +5,12 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'widget_styles.dart';
 
 class ChkTkTextField extends StatelessWidget {
-  String myLabel;
-  String myHint;
-  Color mybgColor;
-  DeliveryController deliveryController = Get.put(DeliveryController());
-  dynamic txtVal;
-  var txtControllerVal;
+  String? myLabel;
+  String? myHint;
+  Color? mybgColor;
+  DeliveryController? deliveryController = Get.put(DeliveryController());
+  dynamic? txtVal;
+  TextEditingController? txtControllerVal;
 
   // String newMethod(value) {
   //   print('$value');
