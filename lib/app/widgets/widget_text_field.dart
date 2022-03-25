@@ -31,7 +31,7 @@ class ChkTkTextField extends StatelessWidget {
         onChanged: (val) {
           // print(val);
           // print(txtControllerVal);
-          txtControllerVal = "fdfdfd";
+          // txtControllerVal = "fdfdfd";
         },
         decoration: WidgetStyles().ChktkTextFieldDecoration(
           myLabel: myLabel,

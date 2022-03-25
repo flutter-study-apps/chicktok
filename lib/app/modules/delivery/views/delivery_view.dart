@@ -219,8 +219,10 @@ class DeliveryView extends GetView<DeliveryController> {
                                     child: Container(
                                       height: 50,
                                       child: ChkTkTextField(
-                                        txtControllerVal: deliveryController
-                                            .newDeliveryProducts.value[0].name,
+                                        // txtControllerVal: deliveryController
+                                        //     .newDeliveryProducts.value[0].name,
+                                        // txtControllerVal: deliveryController
+
                                         myHint: 'Qty',
                                       ),
                                     ),
