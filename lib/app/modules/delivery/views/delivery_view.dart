@@ -18,6 +18,9 @@ class DeliveryView extends GetView<DeliveryController> {
   Widget build(BuildContext context) {
     final df = new DateFormat('dd-MM-yyyy');
 
+    // controller.newDeliveryProducts
+    //    .add(NewProduct(productController.products.value.products![0], 40, 0));
+
     return Obx(() => Container(
           padding: EdgeInsets.all(30),
           color: Colors.amber,
@@ -50,7 +53,7 @@ class DeliveryView extends GetView<DeliveryController> {
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.max,
@@ -60,17 +63,21 @@ class DeliveryView extends GetView<DeliveryController> {
                               Expanded(
                                 flex: 1,
                                 child: ChkTkTextField(
+                                  initialVal: controller.deliveredBy.value,
+                                  height: 50,
                                   myLabel: 'Delivered By',
                                   myHint: "Person who delivered",
                                   mybgColor: Colors.amber[400]!,
                                 ),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                               Expanded(
                                 flex: 1,
                                 child: ChkTkTextField(
+                                  initialVal: controller.recievedBy.value,
+                                  height: 50,
                                   myLabel: 'Recieved By',
                                   myHint: 'Person who recieved',
                                   mybgColor: Colors.amber[400]!,
@@ -88,16 +95,20 @@ class DeliveryView extends GetView<DeliveryController> {
                             children: [
                               Expanded(
                                 child: ChkTkTextField(
+                                  initialVal: controller.deliveryDate.value,
+                                  height: 50,
                                   myLabel: 'Date',
                                   myHint: 'Enter the Date',
                                   mybgColor: Colors.amber[400]!,
                                 ),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                               Expanded(
                                 child: ChkTkTextField(
+                                  initialVal: controller.deliveryTime.value,
+                                  height: 50,
                                   myLabel: 'Time',
                                   myHint: 'Enter the Time',
                                   mybgColor: Colors.amber[400]!,
@@ -115,16 +126,21 @@ class DeliveryView extends GetView<DeliveryController> {
                             children: [
                               Expanded(
                                 child: ChkTkTextField(
+                                  initialVal:
+                                      controller.changeFund.value.toString(),
                                   myLabel: 'Change Fund',
+                                  height: 50,
                                   myHint: 'Enter Change Fund Amount',
                                   mybgColor: Colors.amber[400]!,
                                 ),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                               Expanded(
                                 child: ChkTkTextField(
+                                  initialVal: controller.note.value,
+                                  height: 50,
                                   myLabel: 'Note',
                                   myHint:
                                       'Enter more details about the delivery',
@@ -139,162 +155,146 @@ class DeliveryView extends GetView<DeliveryController> {
                   ),
                 ),
 
-                SizedBox(height: 30),
+                // SizedBox(height: 30),
+                Divider(
+                  thickness: 1,
+                  height: 30,
+                ),
                 Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20),
                       Row(
                         children: [
                           Expanded(
                             flex: 5,
-                            child: Text("PRODUCT LIST".toUpperCase(),
-                                style: Theme.of(context).textTheme.subtitle1),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 56,
+                                  child: ElevatedButton(
+                                    onPressed: () =>
+                                        controller.addNewDeliveryItemRow(),
+                                    child: Icon(Icons.add),
+                                    style: ButtonStyle(
+                                      alignment: Alignment.centerLeft,
+                                      shape: MaterialStateProperty.all(
+                                          CircleBorder()),
+                                      // padding: MaterialStateProperty.all(
+                                      //     EdgeInsets.all(2)),
+
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.blue), // <-- Button color
+                                      overlayColor: MaterialStateProperty
+                                          .resolveWith<Color?>((states) {
+                                        if (states
+                                            .contains(MaterialState.pressed))
+                                          return Colors.red; // <-- Splash color
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                                Text("  PRODUCT LIST".toUpperCase(),
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1),
+                              ],
+                            ),
                           ),
                           Expanded(
                             flex: 2,
                             child: Text('Fresh', textAlign: TextAlign.center),
                           ),
-                          Expanded(
-                            flex: 2,
-                            child: Text('Cook', textAlign: TextAlign.center),
-                          ),
                         ],
                       ),
-                      SizedBox(height: 10),
-                      // Row(
-                      //   children: [
-                      //     Text(controller.newDeliveryProducts.value.first.id
-                      //         .toString()),
-                      //   ],
-                      // ),
-                      SizedBox(height: 10),
-                      Column(
-                        children: controller.newDeliveryProducts.value
-                            .map((e) => Text(e.name.toString()))
-                            .toList(),
-                      ),
 
-                      Column(
-                        children: controller.newDeliveryProducts.value
-                            .map(
-                              (e) => Row(
-                                children: [
-                                  Expanded(
-                                    flex: 5,
-                                    child: Container(
-                                      height: 50,
-                                      child: DropdownButtonFormField<String>(
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          contentPadding: EdgeInsets.all(10),
-                                          fillColor: Colors.white,
-                                          filled: true,
+                      SizedBox(height: 10),
+                      controller.newDeliveryProducts.value.isEmpty
+                          ? SizedBox()
+                          : Column(
+                              children: controller.newDeliveryProducts.value
+                                  .map((e) => Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 2),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 5,
+                                              child: Container(
+                                                height: 50,
+                                                child: Container(
+                                                  padding: EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      border: Border.all(),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              3)),
+                                                  child:
+                                                      DropdownButtonHideUnderline(
+                                                    child:
+                                                        DropdownButton<Product>(
+                                                      isExpanded: true,
+                                                      value: productController
+                                                          .products
+                                                          .value
+                                                          .products!
+                                                          .where((element) =>
+                                                              element.id ==
+                                                              e.product.id)
+                                                          .first,
+                                                      icon: const Icon(
+                                                          Icons.arrow_downward),
+                                                      elevation: 16,
+                                                      style: const TextStyle(
+                                                          color: Colors
+                                                              .deepPurple),
+                                                      onChanged: (val) async {
+                                                        if (val != null) {
+                                                          controller
+                                                              .updateNewDeliveryProduct(
+                                                                  productVal:
+                                                                      val,
+                                                                  newDeliveryProductsItem:
+                                                                      e);
+                                                        }
+                                                      },
+                                                      items: productController
+                                                          .products
+                                                          .value
+                                                          .products
+                                                          ?.map((Product
+                                                              thisProduct) {
+                                                        return DropdownMenuItem<
+                                                                Product>(
+                                                            value: thisProduct,
+                                                            child: Text(
+                                                                "${thisProduct.name}"));
+                                                      }).toList(),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 5),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Container(
+                                                height: 50,
+                                                child: ChkTkTextField(
+                                                  initialVal: e.raw.toString(),
+                                                  myHint: 'Qty',
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 5),
+                                          ],
                                         ),
-                                        value: this
-                                            .productController
-                                            .products
-                                            .value
-                                            .products![0]
-                                            .name,
-                                        icon: const Icon(Icons.arrow_downward),
-                                        elevation: 16,
-                                        style: const TextStyle(
-                                            color: Colors.deepPurple),
-                                        onChanged: (String? newValue) {},
-                                        items: productController
-                                            .products.value.products
-                                            ?.map((Product value) {
-                                          return DropdownMenuItem<String>(
-                                              value: value.name,
-                                              child: Text("${value.name}"));
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Container(
-                                      height: 50,
-                                      child: ChkTkTextField(
-                                        txtControllerVal: deliveryController
-                                            .newDeliveryProducts.value[0].name,
-                                        myHint: 'Qty',
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Container(
-                                      height: 50,
-                                      child: ChkTkTextField(
-                                        myHint: 'Qty',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       flex: 5,
-                      //       child: Container(
-                      //         height: 50,
-                      //         child: DropdownButtonFormField<String>(
-                      //           decoration: InputDecoration(
-                      //             border: OutlineInputBorder(),
-                      //             contentPadding: EdgeInsets.all(10),
-                      //             fillColor: Colors.white,
-                      //             filled: true,
-                      //           ),
-                      //           value: this
-                      //               .productController
-                      //               .products
-                      //               .value
-                      //               .products![0]
-                      //               .name,
-                      //           icon: const Icon(Icons.arrow_downward),
-                      //           elevation: 16,
-                      //           style:
-                      //                   const TextStyle(color: Colors.deepPurple),
-                      //           onChanged: (String? newValue) {},
-                      //           items: productController.products.value.products
-                      //               ?.map((Product value) {
-                      //             return DropdownMenuItem<String>(
-                      //                 value: value.name,
-                      //                 child: Text("${value.name}"));
-                      //           }).toList(),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 5),
-                      //     Expanded(
-                      //       flex: 2,
-                      //       child: Container(
-                      //         height: 50,
-                      //         child: ChkTkTextField(
-                      //           myHint: 'Qty',
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 5),
-                      //     Expanded(
-                      //       flex: 2,
-                      //       child: Container(
-                      //         height: 50,
-                      //         child: ChkTkTextField(
-                      //           myHint: 'Qty',
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                                      ))
+                                  .toList(),
+                            ),
+
+                      // Column(
                     ],
                   ),
                 ),
