@@ -1,19 +1,30 @@
 import 'dart:async';
 
+import 'package:chicktok/app/data/models/new_delivery_product_model.dart';
 import 'package:chicktok/app/modules/delivery/providers/delivery_provider.dart';
 import 'package:chicktok/app/modules/products/controllers/products_controller.dart';
 import 'package:chicktok/app/modules/products/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../delivery_model.dart';
 
 class DeliveryController extends GetxController {
   //TODO: Implement DeliveryController
-
+  var now = new DateTime.now();
+  var dateFormatter = new DateFormat('MM-dd-yyyy');
+  var timeFormatter = new DateFormat('hh:mm a');
   final count = 0.obs;
   var isStreamOn = true.obs;
   var isLoading = true.obs;
+  RxString deliveredBy = "Alexies".obs;
+  RxString recievedBy = "Arnold".obs;
+  RxString deliveryDate = "".obs;
+  RxString deliveryTime = "9 am".obs;
+  RxString note = "Text Note".obs;
+  RxDouble changeFund = 2600.0.obs;
+
   var deliveriesStreamControllerController = StreamController<Delivery>().obs;
   var deliveries = <Delivery>[].obs;
   ProductsController productController = Get.put(ProductsController());
@@ -41,7 +52,8 @@ class DeliveryController extends GetxController {
           .first;
       selected.product = productVal;
 
-      print('---${newDeliveryProducts[0].product.name}');
+      print(
+          '---${newDeliveryProducts[newDeliveryProducts.indexOf(selected)].product.name.toString()}-- ${newDeliveryProducts.indexOf(selected)} ');
     }
     if (qtyRqw != null) {}
   }
@@ -62,6 +74,8 @@ class DeliveryController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    deliveryDate.value = dateFormatter.format(now).toString();
+    deliveryTime.value = timeFormatter.format(now).toString();
 
     // initializeValNewProduct();
     // deliveriesStreamControllerController.value.addStream(deliveryStream());
@@ -122,14 +136,4 @@ class DeliveryController extends GetxController {
   @override
   void onClose() {}
   void increment() => count.value++;
-}
-
-class NewDeliveryProduct {
-  Product product;
-  int raw;
-
-  NewDeliveryProduct(
-    this.product,
-    this.raw,
-  );
 }

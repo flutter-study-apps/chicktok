@@ -12,6 +12,7 @@ class ChkTkTextField extends StatelessWidget {
   DeliveryController? deliveryController = Get.put(DeliveryController());
   dynamic? txtVal;
   TextEditingController? txtControllerVal;
+  double? height;
 
   // String newMethod(value) {
   //   print('$value');
@@ -19,16 +20,19 @@ class ChkTkTextField extends StatelessWidget {
   //   // deliveryController.newDeliveryProducts.value[0].name ;
   // }
 
-  ChkTkTextField(
-      {this.myLabel = "",
-      this.myHint = "Enter Value",
-      this.mybgColor = Colors.white,
-      this.txtControllerVal,
-      this.initialVal});
+  ChkTkTextField({
+    this.myLabel = "",
+    this.myHint = "Enter Value",
+    this.mybgColor = Colors.white,
+    this.txtControllerVal,
+    this.initialVal,
+    this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: this.height,
       child: TextFormField(
         initialValue: initialVal,
         onChanged: (val) {
