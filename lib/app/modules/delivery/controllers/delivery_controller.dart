@@ -28,18 +28,39 @@ class DeliveryController extends GetxController {
   var deliveriesStreamControllerController = StreamController<Delivery>().obs;
   var deliveries = <Delivery>[].obs;
   ProductsController productController = Get.put(ProductsController());
-  var newDeliveryProducts = <NewDeliveryProduct>[
-    NewDeliveryProduct(
-      Product(
-        id: 1,
-        description: 'Roasted chicken and marinated using secret ingredients',
-        name: 'Roast Chicken',
-        price: 22511,
-        qtyRaw: 30,
-      ),
-      49,
-    )
-  ].obs;
+  Rx<DeliveryDetails> newDelivery = DeliveryDetails(
+      deliveredBy: "Alexies",
+      recievedby: "Arnold",
+      deliveryDate: "",
+      deliveryTime: "",
+      changeFund: 2600.0,
+      deliveryNote: "A Sample Delivery Note",
+      deliveryProducts: [
+        NewDeliveryProduct(
+          Product(
+            id: 1,
+            description:
+                'Roasted chicken and marinated using secret ingredients',
+            name: 'Roast Chicken',
+            price: 22511,
+            qtyRaw: 30,
+          ),
+          49,
+        )
+      ]).obs;
+
+  // var newDeliveryProducts = <NewDeliveryProduct>[
+  //   NewDeliveryProduct(
+  //     Product(
+  //       id: 1,
+  //       description: 'Roasted chicken and marinated using secret ingredients',
+  //       name: 'Roast Chicken',
+  //       price: 22511,
+  //       qtyRaw: 30,
+  //     ),
+  //     49,
+  //   )
+  // ].obs;
 
   void updateNewDeliveryProduct({
     required index,
@@ -50,7 +71,7 @@ class DeliveryController extends GetxController {
       // var selected = newDeliveryProducts
       //     .where((p0) => p0.product.id == newDeliveryProductsItem.product.id)
       //     .first;
-      newDeliveryProducts.value[index].product = productVal;
+      newDelivery.value.deliveryProducts[index].product = productVal;
       // selected.product = productVal;
 
       // print(
@@ -60,7 +81,7 @@ class DeliveryController extends GetxController {
   }
 
   void addNewDeliveryItemRow() {
-    newDeliveryProducts.add(NewDeliveryProduct(
+    newDelivery.value.deliveryProducts.add(NewDeliveryProduct(
       Product(
         id: 1,
         description: 'Roasted chicken and marinated using secret ingredients',
@@ -75,8 +96,11 @@ class DeliveryController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    deliveryDate.value = dateFormatter.format(now).toString();
-    deliveryTime.value = timeFormatter.format(now).toString();
+    newDelivery.value.deliveryDate = dateFormatter.format(now).toString();
+    newDelivery.value.deliveryDate = timeFormatter.format(now).toString();
+    // newDeliveryDetails.deliveryDate.value =
+    //     dateFormatter.format(now).toString();
+    // deliveryTime.value = timeFormatter.format(now).toString();
 
     // initializeValNewProduct();
     // deliveriesStreamControllerController.value.addStream(deliveryStream());

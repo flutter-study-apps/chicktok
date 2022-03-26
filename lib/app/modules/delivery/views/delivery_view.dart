@@ -22,7 +22,9 @@ class DeliveryView extends GetView<DeliveryController> {
     //    .add(NewProduct(productController.products.value.products![0], 40, 0));
 
     return Obx(() => Container(
-          padding: EdgeInsets.all(30),
+          // padding: EdgeInsets.all(30),
+          // padding: EdgeInsets.all(30),
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           color: Colors.amber,
           child: Form(
             child: Column(
@@ -194,13 +196,15 @@ class DeliveryView extends GetView<DeliveryController> {
                       ),
 
                       SizedBox(height: 10),
-                      controller.newDeliveryProducts.value.isEmpty
+                      controller.newDelivery.value.deliveryProducts.isEmpty
                           ? SizedBox()
                           : Column(
-                              children:
-                                  controller.newDeliveryProducts.value.map((e) {
-                                //  final item = controller.newDeliveryProducts.value.indexOf(e);
-                                int index = controller.newDeliveryProducts.value
+                              children: controller
+                                  .newDelivery.value.deliveryProducts
+                                  .map((e) {
+                                //  final item = controller.newDelivery.value.deliveryProducts.indexOf(e);
+                                int index = controller
+                                    .newDelivery.value.deliveryProducts
                                     .indexOf(e);
                                 return Padding(
                                   padding:
@@ -211,13 +215,16 @@ class DeliveryView extends GetView<DeliveryController> {
                                         flex: 1,
                                         child: IconButton(
                                           onPressed: () {
-                                            print(controller
-                                                .newDeliveryProducts.value
+                                            print(controller.newDelivery.value
+                                                .deliveryProducts
                                                 .indexOf(e));
-                                            // controller.newDeliveryProducts.value.removeWhere((element) => e.)
 
-                                            // controller.newDeliveryProducts.value
-                                            //     .removeAt(index);
+                                            int index = controller.newDelivery
+                                                .value.deliveryProducts
+                                                .indexOf(e);
+                                            controller.newDelivery.value
+                                                .deliveryProducts
+                                                .removeAt(index);
                                           },
                                           icon: Icon(Icons.delete),
                                         ),
@@ -252,8 +259,9 @@ class DeliveryView extends GetView<DeliveryController> {
                                                     controller
                                                         .updateNewDeliveryProduct(
                                                       index: controller
-                                                          .newDeliveryProducts
+                                                          .newDelivery
                                                           .value
+                                                          .deliveryProducts
                                                           .indexOf(e),
                                                       productVal: val,
                                                     );
