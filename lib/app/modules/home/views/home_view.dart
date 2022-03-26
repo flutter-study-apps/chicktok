@@ -15,7 +15,7 @@ class HomeView extends GetView<HomeController> {
     var width = MediaQuery.of(context).size.width;
 
     return Obx(() => Scaffold(
-       resizeToAvoidBottomInset: false, 
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: Colors.black,
             title: Text('Chicktok Inventory System'),
@@ -28,6 +28,7 @@ class HomeView extends GetView<HomeController> {
               ReportView(),
               SettingView(),
             ],
+            physics: NeverScrollableScrollPhysics(),
             controller: controller.pageController.value,
             // physics: NeverScrollableScrollPhysics(),
 

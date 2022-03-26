@@ -42,18 +42,19 @@ class DeliveryController extends GetxController {
   ].obs;
 
   void updateNewDeliveryProduct({
-    required NewDeliveryProduct newDeliveryProductsItem,
+    required index,
     productVal,
     qtyRqw,
   }) {
     if (productVal != null) {
-      var selected = newDeliveryProducts
-          .where((p0) => p0.product.id == newDeliveryProductsItem.product.id)
-          .first;
-      selected.product = productVal;
+      // var selected = newDeliveryProducts
+      //     .where((p0) => p0.product.id == newDeliveryProductsItem.product.id)
+      //     .first;
+      newDeliveryProducts.value[index].product = productVal;
+      // selected.product = productVal;
 
-      print(
-          '---${newDeliveryProducts[newDeliveryProducts.indexOf(selected)].product.name.toString()}-- ${newDeliveryProducts.indexOf(selected)} ');
+      // print(
+      //     '---${newDeliveryProducts[newDeliveryProducts.indexOf(selected)].product.name.toString()}-- ${newDeliveryProducts.indexOf(selected)} ');
     }
     if (qtyRqw != null) {}
   }
