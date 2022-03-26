@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:chicktok/app/data/models/new_delivery_product_model.dart';
 import 'package:chicktok/app/modules/delivery/providers/delivery_provider.dart';
@@ -27,7 +28,9 @@ class DeliveryController extends GetxController {
 
   var deliveriesStreamControllerController = StreamController<Delivery>().obs;
   var deliveries = <Delivery>[].obs;
+  var rnd = new Random();
   ProductsController productController = Get.put(ProductsController());
+  List<TextEditingController> newDeliveriescontrollers = [];
   Rx<DeliveryDetails> newDelivery = DeliveryDetails(
       deliveredBy: "Alexies",
       recievedby: "Arnold",
@@ -35,19 +38,7 @@ class DeliveryController extends GetxController {
       deliveryTime: "",
       changeFund: 2600.0,
       deliveryNote: "A Sample Delivery Note",
-      deliveryProducts: [
-        NewDeliveryProduct(
-          Product(
-            id: 1,
-            description:
-                'Roasted chicken and marinated using secret ingredients',
-            name: 'Roast Chicken',
-            price: 22511,
-            qtyRaw: 30,
-          ),
-          49,
-        )
-      ]).obs;
+      deliveryProducts: []).obs;
 
   // var newDeliveryProducts = <NewDeliveryProduct>[
   //   NewDeliveryProduct(
@@ -62,7 +53,17 @@ class DeliveryController extends GetxController {
   //   )
   // ].obs;
 
-  void updateNewDeliveryProduct({
+  void deleteDeliveryProduct(int index) {
+    print('val for del $index');
+    // print(controller.newDelivery.value.deliveryProducts.indexOf(e));
+
+    // int index = controller.newDelivery.value.deliveryProducts.indexOf(e);
+    newDelivery.value.deliveryProducts!.removeAt(index);
+    // print();
+    update();
+  }
+
+  updateNewDeliveryProduct({
     required index,
     productVal,
     qtyRqw,
@@ -71,26 +72,27 @@ class DeliveryController extends GetxController {
       // var selected = newDeliveryProducts
       //     .where((p0) => p0.product.id == newDeliveryProductsItem.product.id)
       //     .first;
-      newDelivery.value.deliveryProducts[index].product = productVal;
+      newDelivery.value.deliveryProducts![index].product = productVal;
       // selected.product = productVal;
 
       // print(
       //     '---${newDeliveryProducts[newDeliveryProducts.indexOf(selected)].product.name.toString()}-- ${newDeliveryProducts.indexOf(selected)} ');
     }
-    if (qtyRqw != null) {}
+    if (qtyRqw == null || qtyRqw.toString().trim() == "") {
+    } else {
+      print(qtyRqw);
+      newDelivery.value.deliveryProducts![index].raw =
+          int.parse(qtyRqw.toString());
+      print(newDelivery.value.deliveryProducts![index].raw);
+      print('fdf');
+      update();
+    }
   }
 
-  void addNewDeliveryItemRow() {
-    newDelivery.value.deliveryProducts.add(NewDeliveryProduct(
-      Product(
-        id: 1,
-        description: 'Roasted chicken and marinated using secret ingredients',
-        name: 'Roast Chicken',
-        price: 22511,
-        qtyRaw: 30,
-      ),
-      0,
-    ));
+  void addNewDeliveryItemRow({val}) {
+    newDelivery.value.deliveryProducts?.add(val);
+
+// Add the dynamic cntroller here for hte added product
   }
 
   @override
@@ -98,6 +100,74 @@ class DeliveryController extends GetxController {
     super.onInit();
     newDelivery.value.deliveryDate = dateFormatter.format(now).toString();
     newDelivery.value.deliveryDate = timeFormatter.format(now).toString();
+
+    addNewDeliveryItemRow(
+      val: NewDeliveryProduct(
+        Product(
+          id: 1,
+          description: 'Roasted chicken and marinated using secret ingredients',
+          name: 'Roast Chicken',
+          price: 22511,
+        ),
+        rnd.nextInt(90) + 10,
+      ),
+    );
+
+    addNewDeliveryItemRow(
+      val: NewDeliveryProduct(
+        Product(
+          id: 2,
+          description: 'Short Description of the product',
+          name: 'Frietzkn 8',
+          price: 35,
+        ),
+        rnd.nextInt(90) + 10,
+      ),
+    );
+    addNewDeliveryItemRow(
+      val: NewDeliveryProduct(
+        Product(
+          id: 1,
+          description: 'Roasted chicken and marinated using secret ingredients',
+          name: 'Roast Chicken',
+          price: 22511,
+        ),
+        rnd.nextInt(90) + 10,
+      ),
+    );
+    // newDelivery.value.deliveryProducts?.add(
+    //   NewDeliveryProduct(
+    //     Product(
+    //       id: 1,
+    //       description: 'Roasted chicken and marinated using secret ingredients',
+    //       name: 'Roast Chicken',
+    //       price: 22511,
+    //     ),
+    //     rnd.nextInt(90) + 10,
+    //   ),
+    // );
+    // newDelivery.value.deliveryProducts?.add(
+    //   NewDeliveryProduct(
+    //     Product(
+    //       id: 2,
+    //       description: 'Short Description of the product',
+    //       name: 'Frietzkn 8',
+    //       price: 35,
+    //     ),
+    //     rnd.nextInt(90) + 10,
+    //   ),
+    // );
+    // newDelivery.value.deliveryProducts?.add(
+    //   NewDeliveryProduct(
+    //     Product(
+    //       id: 1,
+    //       description: 'Roasted chicken and marinated using secret ingredients',
+    //       name: 'Roast Chicken',
+    //       price: 22511,
+    //     ),
+    //     rnd.nextInt(90) + 10,
+    //   ),
+    // );
     // newDeliveryDetails.deliveryDate.value =
     //     dateFormatter.format(now).toString();
     // deliveryTime.value = timeFormatter.format(now).toString();

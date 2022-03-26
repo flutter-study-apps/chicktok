@@ -13,6 +13,8 @@ class ChkTkTextField extends StatelessWidget {
   dynamic? txtVal;
   TextEditingController? txtControllerVal;
   double? height;
+  TextInputType? keyboardType;
+  Function(String)? update;
 
   // String newMethod(value) {
   //   print('$value');
@@ -27,6 +29,8 @@ class ChkTkTextField extends StatelessWidget {
     this.txtControllerVal,
     this.initialVal,
     this.height,
+    this.keyboardType,
+    this.update,
   });
 
   @override
@@ -35,11 +39,8 @@ class ChkTkTextField extends StatelessWidget {
       height: this.height,
       child: TextFormField(
         initialValue: initialVal,
-        onChanged: (val) {
-          // print(val);
-          // print(txtControllerVal);
-          // txtControllerVal = "fdfdfd";
-        },
+        keyboardType: keyboardType,
+        onChanged: update,
         decoration: WidgetStyles().ChktkTextFieldDecoration(
           myLabel: myLabel,
           myHint: myHint,

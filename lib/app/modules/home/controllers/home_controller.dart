@@ -20,8 +20,6 @@ class HomeController extends GetxController {
     // update();
   }
 
-
-
   final count = 0.obs;
   @override
   void onInit() {

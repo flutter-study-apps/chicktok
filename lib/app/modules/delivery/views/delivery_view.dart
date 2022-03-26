@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:chicktok/app/data/models/new_delivery_product_model.dart';
 import 'package:chicktok/app/modules/products/controllers/products_controller.dart';
 import 'package:chicktok/app/modules/products/product_model.dart';
 import 'package:chicktok/app/widgets/widget_text_field.dart';
@@ -12,6 +15,7 @@ import 'package:intl/intl.dart';
 class DeliveryView extends GetView<DeliveryController> {
   DeliveryController deliveryController = Get.put(DeliveryController());
   ProductsController productController = Get.put(ProductsController());
+  var rnd = new Random();
   var _collapsed = false;
   // String dropdownValue = productController.products.value.products[0].name;
   @override
@@ -21,13 +25,14 @@ class DeliveryView extends GetView<DeliveryController> {
     // controller.newDeliveryProducts
     //    .add(NewProduct(productController.products.value.products![0], 40, 0));
 
-    return Obx(() => Container(
-          // padding: EdgeInsets.all(30),
-          // padding: EdgeInsets.all(30),
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          color: Colors.amber,
-          child: Form(
-            child: CustomScrollView(
+    return Container(
+        // padding: EdgeInsets.all(30),
+        // padding: EdgeInsets.all(30),
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        color: Colors.amber,
+        child: Form(
+          child: Obx(
+            () => CustomScrollView(
               slivers: [
                 //Delivery Details
                 SliverToBoxAdapter(
@@ -184,7 +189,18 @@ class DeliveryView extends GetView<DeliveryController> {
                                       child: FloatingActionButton(
                                     mini: true,
                                     onPressed: () =>
-                                        controller.addNewDeliveryItemRow(),
+                                        controller.addNewDeliveryItemRow(
+                                      val: NewDeliveryProduct(
+                                        Product(
+                                          id: 1,
+                                          description:
+                                              'Roasted chicken and marinated using secret ingredients',
+                                          name: 'Roast Chicken',
+                                          price: 22511,
+                                        ),
+                                        rnd.nextInt(90) + 10,
+                                      ),
+                                    ),
                                     child: Icon(Icons.add),
                                   )),
                                   Text("  PRODUCT LIST".toUpperCase(),
@@ -202,15 +218,15 @@ class DeliveryView extends GetView<DeliveryController> {
                         ),
 
                         SizedBox(height: 10),
-                        controller.newDelivery.value.deliveryProducts.isEmpty
+                        controller.newDelivery.value.deliveryProducts!.isEmpty
                             ? SizedBox()
                             : Column(
                                 children: controller
-                                    .newDelivery.value.deliveryProducts
+                                    .newDelivery.value.deliveryProducts!
                                     .map((e) {
                                   //  final item = controller.newDelivery.value.deliveryProducts.indexOf(e);
                                   int index = controller
-                                      .newDelivery.value.deliveryProducts
+                                      .newDelivery.value.deliveryProducts!
                                       .indexOf(e);
                                   return Padding(
                                     padding:
@@ -220,18 +236,23 @@ class DeliveryView extends GetView<DeliveryController> {
                                         Expanded(
                                           flex: 1,
                                           child: IconButton(
-                                            onPressed: () {
-                                              print(controller.newDelivery.value
-                                                  .deliveryProducts
-                                                  .indexOf(e));
+                                            onPressed: () => controller
+                                                .deleteDeliveryProduct(
+                                                    controller.newDelivery.value
+                                                        .deliveryProducts!
+                                                        .indexOf(e)),
+                                            // onPressed: () {
+                                            //   print(controller.newDelivery.value
+                                            //       .deliveryProducts
+                                            //       .indexOf(e));
 
-                                              int index = controller.newDelivery
-                                                  .value.deliveryProducts
-                                                  .indexOf(e);
-                                              controller.newDelivery.value
-                                                  .deliveryProducts
-                                                  .removeAt(index);
-                                            },
+                                            //   int index = controller.newDelivery
+                                            //       .value.deliveryProducts
+                                            //       .indexOf(e);
+                                            //   controller.newDelivery.value
+                                            //       .deliveryProducts
+                                            //       .removeAt(index);
+                                            // },
                                             icon: Icon(Icons.delete),
                                           ),
                                         ),
@@ -268,7 +289,7 @@ class DeliveryView extends GetView<DeliveryController> {
                                                         index: controller
                                                             .newDelivery
                                                             .value
-                                                            .deliveryProducts
+                                                            .deliveryProducts!
                                                             .indexOf(e),
                                                         productVal: val,
                                                       );
@@ -295,6 +316,17 @@ class DeliveryView extends GetView<DeliveryController> {
                                           child: Container(
                                             height: 50,
                                             child: ChkTkTextField(
+                                              // txtControllerVal:
+                                              //     e.textEditingController.value,
+                                              update: (p0) => controller
+                                                  .updateNewDeliveryProduct(
+                                                index: controller.newDelivery
+                                                    .value.deliveryProducts!
+                                                    .indexOf(e),
+                                                qtyRqw: p0,
+                                              ),
+                                              keyboardType:
+                                                  TextInputType.number,
                                               initialVal: e.raw.toString(),
                                               myHint: 'Qty',
                                             ),

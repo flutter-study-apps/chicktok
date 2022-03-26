@@ -1,4 +1,5 @@
 import 'package:chicktok/app/modules/products/product_model.dart';
+import 'package:flutter/cupertino.dart';
 
 class NewDeliveryProduct {
   Product product;
@@ -16,14 +17,14 @@ class DeliveryDetails {
   String deliveryDate;
   String deliveryTime;
   double changeFund;
-  String deliveryNote;
-  List<NewDeliveryProduct> deliveryProducts;
+  String? deliveryNote;
+  List<NewDeliveryProduct>? deliveryProducts;
   DeliveryDetails(
       {required this.deliveredBy,
       required this.recievedby,
       required this.deliveryDate,
       required this.deliveryTime,
       required this.changeFund,
-      required this.deliveryNote,
-      required this.deliveryProducts});
+      this.deliveryNote,
+      this.deliveryProducts});
 }
