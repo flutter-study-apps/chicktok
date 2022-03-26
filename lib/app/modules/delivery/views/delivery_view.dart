@@ -18,6 +18,9 @@ class DeliveryView extends GetView<DeliveryController> {
   Widget build(BuildContext context) {
     final df = new DateFormat('dd-MM-yyyy');
 
+    // controller.newDeliveryProducts
+    //    .add(NewProduct(productController.products.value.products![0], 40, 0));
+
     return Obx(() => Container(
           padding: EdgeInsets.all(30),
           color: Colors.amber,
@@ -149,154 +152,97 @@ class DeliveryView extends GetView<DeliveryController> {
                         children: [
                           Expanded(
                             flex: 5,
-                            child: Text("PRODUCT LIST".toUpperCase(),
-                                style: Theme.of(context).textTheme.subtitle1),
+                            child: Row(
+                              children: [
+                                ElevatedButton(
+                                    onPressed: () =>
+                                        controller.addNewDeliveryItemRow(),
+                                    child: Text('+')),
+                                Text("  PRODUCT LIST".toUpperCase(),
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1),
+                              ],
+                            ),
                           ),
                           Expanded(
                             flex: 2,
                             child: Text('Fresh', textAlign: TextAlign.center),
                           ),
-                          Expanded(
-                            flex: 2,
-                            child: Text('Cook', textAlign: TextAlign.center),
-                          ),
                         ],
                       ),
                       SizedBox(height: 10),
-                      // Row(
-                      //   children: [
-                      //     Text(controller.newDeliveryProducts.value.first.id
-                      //         .toString()),
-                      //   ],
-                      // ),
+
                       SizedBox(height: 10),
                       Column(
                         children: controller.newDeliveryProducts.value
-                            .map((e) => Text(e.name.toString()))
-                            .toList(),
-                      ),
-
-                      Column(
-                        children: controller.newDeliveryProducts.value
-                            .map(
-                              (e) => Row(
-                                children: [
-                                  Expanded(
-                                    flex: 5,
-                                    child: Container(
-                                      height: 50,
-                                      child: DropdownButtonFormField<String>(
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          contentPadding: EdgeInsets.all(10),
-                                          fillColor: Colors.white,
-                                          filled: true,
+                            .map((e) => Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 5,
+                                      child: Container(
+                                        height: 50,
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(),
+                                              borderRadius:
+                                                  BorderRadius.circular(3)),
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton<Product>(
+                                              isExpanded: true,
+                                              value: productController
+                                                  .products.value.products!
+                                                  .where((element) =>
+                                                      element.id ==
+                                                      e.product.id)
+                                                  .first,
+                                              icon: const Icon(
+                                                  Icons.arrow_downward),
+                                              elevation: 16,
+                                              style: const TextStyle(
+                                                  color: Colors.deepPurple),
+                                              onChanged: (val) async {
+                                                if (val != null) {
+                                                  controller
+                                                      .updateNewDeliveryProduct(
+                                                          productVal: val,
+                                                          newDeliveryProductsItem:
+                                                              e);
+                                                }
+                                              },
+                                              items: productController
+                                                  .products.value.products
+                                                  ?.map((Product thisProduct) {
+                                                return DropdownMenuItem<
+                                                        Product>(
+                                                    value: thisProduct,
+                                                    child: Text(
+                                                        "${thisProduct.name}"));
+                                              }).toList(),
+                                            ),
+                                          ),
                                         ),
-                                        value: this
-                                            .productController
-                                            .products
-                                            .value
-                                            .products![0]
-                                            .name,
-                                        icon: const Icon(Icons.arrow_downward),
-                                        elevation: 16,
-                                        style: const TextStyle(
-                                            color: Colors.deepPurple),
-                                        onChanged: (String? newValue) {},
-                                        items: productController
-                                            .products.value.products
-                                            ?.map((Product value) {
-                                          return DropdownMenuItem<String>(
-                                              value: value.name,
-                                              child: Text("${value.name}"));
-                                        }).toList(),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Container(
-                                      height: 50,
-                                      child: ChkTkTextField(
-                                        // txtControllerVal: deliveryController
-                                        //     .newDeliveryProducts.value[0].name,
-                                        // txtControllerVal: deliveryController
-
-                                        myHint: 'Qty',
+                                    SizedBox(width: 5),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        height: 50,
+                                        child: ChkTkTextField(
+                                          initialVal: e.raw.toString(),
+                                          myHint: 'Qty',
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Container(
-                                      height: 50,
-                                      child: ChkTkTextField(
-                                        myHint: 'Qty',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
+                                    SizedBox(width: 5),
+                                  ],
+                                ))
                             .toList(),
                       ),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       flex: 5,
-                      //       child: Container(
-                      //         height: 50,
-                      //         child: DropdownButtonFormField<String>(
-                      //           decoration: InputDecoration(
-                      //             border: OutlineInputBorder(),
-                      //             contentPadding: EdgeInsets.all(10),
-                      //             fillColor: Colors.white,
-                      //             filled: true,
-                      //           ),
-                      //           value: this
-                      //               .productController
-                      //               .products
-                      //               .value
-                      //               .products![0]
-                      //               .name,
-                      //           icon: const Icon(Icons.arrow_downward),
-                      //           elevation: 16,
-                      //           style:
-                      //                   const TextStyle(color: Colors.deepPurple),
-                      //           onChanged: (String? newValue) {},
-                      //           items: productController.products.value.products
-                      //               ?.map((Product value) {
-                      //             return DropdownMenuItem<String>(
-                      //                 value: value.name,
-                      //                 child: Text("${value.name}"));
-                      //           }).toList(),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 5),
-                      //     Expanded(
-                      //       flex: 2,
-                      //       child: Container(
-                      //         height: 50,
-                      //         child: ChkTkTextField(
-                      //           myHint: 'Qty',
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 5),
-                      //     Expanded(
-                      //       flex: 2,
-                      //       child: Container(
-                      //         height: 50,
-                      //         child: ChkTkTextField(
-                      //           myHint: 'Qty',
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+
+                      // Column(
                     ],
                   ),
                 ),

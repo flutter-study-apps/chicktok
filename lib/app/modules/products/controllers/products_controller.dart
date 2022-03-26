@@ -32,7 +32,7 @@ class ProductsController extends GetxController with StateMixin {
 
   Stream<Products> productStream() async* {
     while (isStreamOn.value == true) {
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(Duration(milliseconds: 1000));
 
       try {
         // print('product streaming');

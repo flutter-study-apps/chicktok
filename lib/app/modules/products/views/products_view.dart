@@ -1,6 +1,7 @@
 import 'dart:async';
 // import 'package:dotenv/dotenv.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:chicktok/app/modules/products/product_model.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ class ProductsView extends GetView<ProductsController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-    
           color: Colors.amber,
           width: double.infinity,
           child: productController.isLoading.value == true
@@ -68,13 +68,13 @@ class ProductsView extends GetView<ProductsController> {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              Image.network(
-                                '${FlutterConfig.get("SERVER_ADDRESS")}/img/${productController.products.value.products![index].img.toString()}',
+                              CachedNetworkImage(
+                                imageUrl:
+                                    '${FlutterConfig.get("SERVER_ADDRESS")}/img/${productController.products.value.products![index].img.toString()}',
                                 fit: BoxFit.cover,
                               ),
-
                               Container(
-                                color: Colors.black.withOpacity(.6),
+                                color: Colors.black.withOpacity(.7),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -115,32 +115,41 @@ class ProductsView extends GetView<ProductsController> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            // 'STOCKS: ${productController.products.value.products![index].qtyRaw}',
-                                            'STOCKS: ${productController.products.value.products![index].qtyRaw! + productController.products.value.products![index].qtyCook!}',
-                                            style:
-                                                InventoryCardsText().copyWith(),
-                                          ),
-                                          Text(
-                                            'Fresh: ${productController.products.value.products![index].qtyRaw!}   |   Cooked: ${productController.products.value.products![index].qtyCook!}',
+                                            'Fresh: ${productController.products.value.products![index].qtyRaw!}',
                                             style: InventoryCardsText()
                                                 .copyWith(fontSize: 12),
-                                          )
-                                        ],
-                                      ),
-                                      Divider(
-                                        color: Colors.white,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
+                                          ),
                                           Text(
-                                            'Sales: 35',
-                                            style:
-                                                InventoryCardsText().copyWith(),
+                                            'Cooked: ${productController.products.value.products![index].qtyCook!}',
+                                            style: InventoryCardsText()
+                                                .copyWith(fontSize: 12),
+                                          ),
+                                          Divider(
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            // 'STOCKS: ${productController.products.value.products![index].qtyRaw}',
+                                            'Total: ${productController.products.value.products![index].qtyRaw! + productController.products.value.products![index].qtyCook!}',
+                                            style: InventoryCardsText()
+                                                .copyWith(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                           ),
                                         ],
-                                      )
+                                      ),
+
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.center,
+                                      //   children: [
+                                      //     Text(
+                                      //       'Sales: 35',
+                                      //       style:
+                                      //           InventoryCardsText().copyWith(),
+                                      //     ),
+                                      //   ],
+                                      // )
                                       // Text(data.products[index].description.toString()),
                                     ],
                                   ),
