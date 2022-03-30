@@ -17,7 +17,7 @@ class DeliveryProvider extends GetConnect {
   }
 
   Future<dynamic> getDeliveries() async {
-    String api = "${FlutterConfig.get("SERVER_ADDRESS")}/api/delivery/all";
+    String api = "${FlutterConfig.get("SERVER_ADDRESS")}/api/delivery/";
     final response = await get(api);
     // print(response.body["data"]);
     if (response.hasError) {

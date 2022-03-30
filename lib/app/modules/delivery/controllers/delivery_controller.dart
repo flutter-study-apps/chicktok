@@ -40,15 +40,36 @@ class DeliveryController extends GetxController {
       deliveryNote: "A Sample Delivery Note",
       deliveryProducts: []).obs;
 
+  Stream<Delivery> deliveryStream() async* {
+    while (isStreamOn.value == true) {
+      await Future.delayed(Duration(milliseconds: 2000));
+
+      try {
+        var response = await DeliveryProvider().getDeliveries();
+        var body = response.body;
+
+        List data = body["data"];
+
+        print(body["data"][0]['products'][0]['pivot']['quantity']);
+        List<Delivery> deliveriesData = [];
+
+        for (var val in data) {
+          deliveriesData.add(Delivery.fromJson(val));
+        }
+
+        deliveries.value = deliveriesData;
+
+        // isLoading.value = false;
+      } catch (e) {
+        isLoading.value = true;
+      }
+    }
+  }
+
   void deleteDeliveryProduct(int index) {
     print('val for del $index');
-    // print(controller.newDelivery.value.deliveryProducts.indexOf(e));
-
-    // int index = controller.newDelivery.value.deliveryProducts.indexOf(e);
     newDelivery.value.deliveryProducts!.removeAt(index);
-    // newDeliveriescontrollers.value[index - 1].text = "3333";
     newDeliveriescontrollers.removeAt(index);
-    // print();
     update();
   }
 
@@ -58,22 +79,13 @@ class DeliveryController extends GetxController {
     qtyRqw,
   }) {
     if (productVal != null) {
-      // var selected = newDeliveryProducts
-      //     .where((p0) => p0.product.id == newDeliveryProductsItem.product.id)
-      //     .first;
       newDelivery.value.deliveryProducts![index].product = productVal;
       print('product val- $productVal');
-      // selected.product = productVal;
-
-      // print(
-      //     '---${newDeliveryProducts[newDeliveryProducts.indexOf(selected)].product.name.toString()}-- ${newDeliveryProducts.indexOf(selected)} ');
     }
     if (qtyRqw == null || qtyRqw.toString().trim() == "") {
     } else {
       print(qtyRqw);
-      // newDelivery.value.deliveryProducts![index].raw =
-      //     int.parse(qtyRqw.toString());
-      // print(newDelivery.value.deliveryProducts![index].raw);
+
       newDeliveriescontrollers.value[index].text = qtyRqw;
       print('fdf');
       update();
@@ -83,19 +95,17 @@ class DeliveryController extends GetxController {
   void addNewDeliveryItemRow(NewDeliveryProduct val) {
     final controller = TextEditingController();
 
-    // controller.text = (rnd.nextInt(90) + 10).toString();
     controller.text = val.raw.toString();
     val.productController = controller;
     newDelivery.value.deliveryProducts?.add(val);
 
     newDeliveriescontrollers.add(controller);
-
-// Add the dynamic cntroller here for hte added product
   }
 
   @override
   void onInit() async {
     super.onInit();
+    deliveriesStreamControllerController.value.addStream(deliveryStream());
     newDelivery.value.deliveryDate = dateFormatter.format(now).toString();
     newDelivery.value.deliveryDate = timeFormatter.format(now).toString();
 
