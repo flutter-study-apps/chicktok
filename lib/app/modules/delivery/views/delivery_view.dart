@@ -318,8 +318,15 @@ class DeliveryView extends GetView<DeliveryController> {
                                           flex: 2,
                                           child: Obx(
                                             () => Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border.all(),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            3)),
                                                 height: 50,
                                                 child: TextField(
+                                                  textAlign: TextAlign.center,
                                                   controller: controller
                                                           .newDeliveriescontrollers
                                                           .value[

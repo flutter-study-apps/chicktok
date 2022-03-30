@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../delivery_model.dart';
+import '../../../data/models/delivery_model.dart';
 import 'package:flutter_config/flutter_config.dart';
 
 class DeliveryProvider extends GetConnect {

@@ -5,7 +5,6 @@ class NewDeliveryProduct {
   Product product;
   int raw;
   TextEditingController? productController;
-
   NewDeliveryProduct(this.product, this.raw, {this.productController});
 }
 

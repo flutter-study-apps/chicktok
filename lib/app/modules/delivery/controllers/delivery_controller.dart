@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../delivery_model.dart';
+import '../../../data/models/delivery_model.dart';
 
 class DeliveryController extends GetxController {
   //TODO: Implement DeliveryController
