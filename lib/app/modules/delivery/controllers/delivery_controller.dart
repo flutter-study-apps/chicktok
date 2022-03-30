@@ -50,7 +50,7 @@ class DeliveryController extends GetxController {
 
         List data = body["data"];
 
-        print(body["data"][0]['products'][0]['pivot']['quantity']);
+        // print(body["data"][0]['products'][0]['pivot']['quantity']);
         List<Delivery> deliveriesData = [];
 
         for (var val in data) {
@@ -83,11 +83,19 @@ class DeliveryController extends GetxController {
       print('product val- $productVal');
     }
     if (qtyRqw == null || qtyRqw.toString().trim() == "") {
+      newDeliveriescontrollers.value[index].text = 0.toString();
+      newDeliveriescontrollers.value[index].selection =
+          TextSelection.fromPosition(TextPosition(
+              offset: newDeliveriescontrollers.value[index].text.length));
     } else {
-      print(qtyRqw);
+      // print(qtyRqw);
 
-      newDeliveriescontrollers.value[index].text = qtyRqw;
-      print('fdf');
+      newDeliveriescontrollers.value[index].text =
+          int.parse(qtyRqw.toString()).toString();
+      newDeliveriescontrollers.value[index].selection =
+          TextSelection.fromPosition(TextPosition(
+              offset: newDeliveriescontrollers.value[index].text.length));
+      // print('fdf${newDeliveriescontrollers.value[index].text}');
       update();
     }
   }

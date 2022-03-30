@@ -6,6 +6,7 @@ import 'package:chicktok/app/modules/products/product_model.dart';
 import 'package:chicktok/app/widgets/widget_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 
@@ -244,18 +245,6 @@ class DeliveryView extends GetView<DeliveryController> {
                                                     controller.newDelivery.value
                                                         .deliveryProducts!
                                                         .indexOf(e)),
-                                            // onPressed: () {
-                                            //   print(controller.newDelivery.value
-                                            //       .deliveryProducts
-                                            //       .indexOf(e));
-
-                                            //   int index = controller.newDelivery
-                                            //       .value.deliveryProducts
-                                            //       .indexOf(e);
-                                            //   controller.newDelivery.value
-                                            //       .deliveryProducts
-                                            //       .removeAt(index);
-                                            // },
                                             icon: Icon(Icons.delete),
                                           ),
                                         ),
@@ -318,24 +307,51 @@ class DeliveryView extends GetView<DeliveryController> {
                                           flex: 2,
                                           child: Obx(
                                             () => Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    border: Border.all(),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3)),
-                                                height: 50,
-                                                child: TextField(
-                                                  textAlign: TextAlign.center,
-                                                  controller: controller
-                                                          .newDeliveriescontrollers
-                                                          .value[
-                                                      controller
-                                                          .newDelivery
-                                                          .value
-                                                          .deliveryProducts!
-                                                          .indexOf(e)],
-                                                )),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  border: Border.all(),
+                                                  borderRadius:
+                                                      BorderRadius.circular(3)),
+                                              height: 50,
+                                              child: TextFormField(
+                                                autovalidateMode:
+                                                    AutovalidateMode.always,
+                                                validator: (value) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
+                                                    return 'Qty';
+                                                  }
+                                                  return null;
+                                                },
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.all(10),
+                                                  border: InputBorder.none,
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                inputFormatters: <
+                                                    TextInputFormatter>[
+                                                  FilteringTextInputFormatter
+                                                      .digitsOnly
+                                                ], // On
+                                                textAlign: TextAlign.center,
+                                                controller: controller
+                                                        .newDeliveriescontrollers
+                                                        .value[
+                                                    controller.newDelivery.value
+                                                        .deliveryProducts!
+                                                        .indexOf(e)],
+                                                onChanged: (_) => controller
+                                                    .updateNewDeliveryProduct(
+                                                        index: controller
+                                                            .newDelivery
+                                                            .value
+                                                            .deliveryProducts!
+                                                            .indexOf(e),
+                                                        qtyRqw: _),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         SizedBox(width: 5),
