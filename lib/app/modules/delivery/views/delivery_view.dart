@@ -190,16 +190,19 @@ class DeliveryView extends GetView<DeliveryController> {
                                     mini: true,
                                     onPressed: () =>
                                         controller.addNewDeliveryItemRow(
-                                      val: NewDeliveryProduct(
-                                        Product(
-                                          id: 1,
-                                          description:
-                                              'Roasted chicken and marinated using secret ingredients',
-                                          name: 'Roast Chicken',
-                                          price: 22511,
-                                        ),
-                                        rnd.nextInt(90) + 10,
-                                      ),
+                                      NewDeliveryProduct(
+                                          productController
+                                              .products.value.products![0],
+                                          // Product(
+                                          //   id: 1,
+                                          //   description:
+                                          //       'Roasted chicken and marinated using secret ingredients',
+                                          //   name: 'Roast Chicken',
+                                          //   price: 22511,
+                                          // ),
+                                          0
+                                          // rnd.nextInt(90) + 10,
+                                          ),
                                     ),
                                     child: Icon(Icons.add),
                                   )),
@@ -313,23 +316,19 @@ class DeliveryView extends GetView<DeliveryController> {
                                         SizedBox(width: 5),
                                         Expanded(
                                           flex: 2,
-                                          child: Container(
-                                            height: 50,
-                                            child: ChkTkTextField(
-                                              // txtControllerVal:
-                                              //     e.textEditingController.value,
-                                              update: (p0) => controller
-                                                  .updateNewDeliveryProduct(
-                                                index: controller.newDelivery
-                                                    .value.deliveryProducts!
-                                                    .indexOf(e),
-                                                qtyRqw: p0,
-                                              ),
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              initialVal: e.raw.toString(),
-                                              myHint: 'Qty',
-                                            ),
+                                          child: Obx(
+                                            () => Container(
+                                                height: 50,
+                                                child: TextField(
+                                                  controller: controller
+                                                          .newDeliveriescontrollers
+                                                          .value[
+                                                      controller
+                                                          .newDelivery
+                                                          .value
+                                                          .deliveryProducts!
+                                                          .indexOf(e)],
+                                                )),
                                           ),
                                         ),
                                         SizedBox(width: 5),

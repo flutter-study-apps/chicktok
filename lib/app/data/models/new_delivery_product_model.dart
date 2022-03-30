@@ -4,11 +4,9 @@ import 'package:flutter/cupertino.dart';
 class NewDeliveryProduct {
   Product product;
   int raw;
+  TextEditingController? productController;
 
-  NewDeliveryProduct(
-    this.product,
-    this.raw,
-  );
+  NewDeliveryProduct(this.product, this.raw, {this.productController});
 }
 
 class DeliveryDetails {

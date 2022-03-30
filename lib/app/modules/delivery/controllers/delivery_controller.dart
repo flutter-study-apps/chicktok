@@ -30,7 +30,7 @@ class DeliveryController extends GetxController {
   var deliveries = <Delivery>[].obs;
   var rnd = new Random();
   ProductsController productController = Get.put(ProductsController());
-  List<TextEditingController> newDeliveriescontrollers = [];
+  var newDeliveriescontrollers = <TextEditingController>[].obs;
   Rx<DeliveryDetails> newDelivery = DeliveryDetails(
       deliveredBy: "Alexies",
       recievedby: "Arnold",
@@ -40,25 +40,14 @@ class DeliveryController extends GetxController {
       deliveryNote: "A Sample Delivery Note",
       deliveryProducts: []).obs;
 
-  // var newDeliveryProducts = <NewDeliveryProduct>[
-  //   NewDeliveryProduct(
-  //     Product(
-  //       id: 1,
-  //       description: 'Roasted chicken and marinated using secret ingredients',
-  //       name: 'Roast Chicken',
-  //       price: 22511,
-  //       qtyRaw: 30,
-  //     ),
-  //     49,
-  //   )
-  // ].obs;
-
   void deleteDeliveryProduct(int index) {
     print('val for del $index');
     // print(controller.newDelivery.value.deliveryProducts.indexOf(e));
 
     // int index = controller.newDelivery.value.deliveryProducts.indexOf(e);
     newDelivery.value.deliveryProducts!.removeAt(index);
+    // newDeliveriescontrollers.value[index - 1].text = "3333";
+    newDeliveriescontrollers.removeAt(index);
     // print();
     update();
   }
@@ -73,6 +62,7 @@ class DeliveryController extends GetxController {
       //     .where((p0) => p0.product.id == newDeliveryProductsItem.product.id)
       //     .first;
       newDelivery.value.deliveryProducts![index].product = productVal;
+      print('product val- $productVal');
       // selected.product = productVal;
 
       // print(
@@ -81,16 +71,24 @@ class DeliveryController extends GetxController {
     if (qtyRqw == null || qtyRqw.toString().trim() == "") {
     } else {
       print(qtyRqw);
-      newDelivery.value.deliveryProducts![index].raw =
-          int.parse(qtyRqw.toString());
-      print(newDelivery.value.deliveryProducts![index].raw);
+      // newDelivery.value.deliveryProducts![index].raw =
+      //     int.parse(qtyRqw.toString());
+      // print(newDelivery.value.deliveryProducts![index].raw);
+      newDeliveriescontrollers.value[index].text = qtyRqw;
       print('fdf');
       update();
     }
   }
 
-  void addNewDeliveryItemRow({val}) {
+  void addNewDeliveryItemRow(NewDeliveryProduct val) {
+    final controller = TextEditingController();
+
+    // controller.text = (rnd.nextInt(90) + 10).toString();
+    controller.text = val.raw.toString();
+    val.productController = controller;
     newDelivery.value.deliveryProducts?.add(val);
+
+    newDeliveriescontrollers.add(controller);
 
 // Add the dynamic cntroller here for hte added product
   }
@@ -101,8 +99,10 @@ class DeliveryController extends GetxController {
     newDelivery.value.deliveryDate = dateFormatter.format(now).toString();
     newDelivery.value.deliveryDate = timeFormatter.format(now).toString();
 
+    //test data
+    var controller = TextEditingController();
     addNewDeliveryItemRow(
-      val: NewDeliveryProduct(
+      NewDeliveryProduct(
         Product(
           id: 1,
           description: 'Roasted chicken and marinated using secret ingredients',
@@ -110,70 +110,34 @@ class DeliveryController extends GetxController {
           price: 22511,
         ),
         rnd.nextInt(90) + 10,
+        productController: controller,
       ),
     );
 
     addNewDeliveryItemRow(
-      val: NewDeliveryProduct(
+      NewDeliveryProduct(
         Product(
           id: 2,
-          description: 'Short Description of the product',
-          name: 'Frietzkn 8',
+          description: '<p>Short Description of the product</p>',
+          name: 'Fried Chicken',
           price: 35,
         ),
         rnd.nextInt(90) + 10,
+        productController: controller,
       ),
     );
     addNewDeliveryItemRow(
-      val: NewDeliveryProduct(
+      NewDeliveryProduct(
         Product(
-          id: 1,
-          description: 'Roasted chicken and marinated using secret ingredients',
-          name: 'Roast Chicken',
-          price: 22511,
+          id: 3,
+          description: 'Short Description of the product',
+          name: 'Fried Neck',
+          price: 15,
         ),
         rnd.nextInt(90) + 10,
+        productController: controller,
       ),
     );
-    // newDelivery.value.deliveryProducts?.add(
-    //   NewDeliveryProduct(
-    //     Product(
-    //       id: 1,
-    //       description: 'Roasted chicken and marinated using secret ingredients',
-    //       name: 'Roast Chicken',
-    //       price: 22511,
-    //     ),
-    //     rnd.nextInt(90) + 10,
-    //   ),
-    // );
-    // newDelivery.value.deliveryProducts?.add(
-    //   NewDeliveryProduct(
-    //     Product(
-    //       id: 2,
-    //       description: 'Short Description of the product',
-    //       name: 'Frietzkn 8',
-    //       price: 35,
-    //     ),
-    //     rnd.nextInt(90) + 10,
-    //   ),
-    // );
-    // newDelivery.value.deliveryProducts?.add(
-    //   NewDeliveryProduct(
-    //     Product(
-    //       id: 1,
-    //       description: 'Roasted chicken and marinated using secret ingredients',
-    //       name: 'Roast Chicken',
-    //       price: 22511,
-    //     ),
-    //     rnd.nextInt(90) + 10,
-    //   ),
-    // );
-    // newDeliveryDetails.deliveryDate.value =
-    //     dateFormatter.format(now).toString();
-    // deliveryTime.value = timeFormatter.format(now).toString();
-
-    // initializeValNewProduct();
-    // deliveriesStreamControllerController.value.addStream(deliveryStream());
   }
 
   @override
@@ -192,41 +156,12 @@ class DeliveryController extends GetxController {
     deliveriesStreamControllerController.value.done;
     deliveriesStreamControllerController.value.close();
     super.dispose();
-    // productStreamControllerController.close();
   }
 
   @override
   void onReady() {
     super.onReady();
   }
-
-  // Stream<Delivery> deliveryStream() async* {
-  //   // print('delivery stream running');
-  //   while (isStreamOn.value == true) {
-  //     await Future.delayed(Duration(milliseconds: 500));
-
-  //     try {
-  //       // print(newDeliveryProducts.value[0].name.toString());
-  //       // print('delivery streaming');
-  //       var response = await DeliveryProvider().getDeliveries();
-  //       var body = response.body;++
-
-  //       List data = body["data"];
-
-  //       List<Delivery> deliveriesData = [];
-
-  //       for (var val in data) {
-  //         deliveriesData.add(Delivery.fromJson(val));
-  //       }
-
-  //       deliveries.value = deliveriesData;
-
-  //       isLoading.value = false;
-  //     } catch (e) {
-  //       isLoading.value = true;
-  //     }
-  //   }
-  // }
 
   @override
   void onClose() {}
