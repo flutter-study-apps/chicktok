@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../delivery_model.dart';
+import '../../../data/models/delivery_model.dart';
 import 'package:flutter_config/flutter_config.dart';
 
 class DeliveryProvider extends GetConnect {
@@ -17,7 +17,7 @@ class DeliveryProvider extends GetConnect {
   }
 
   Future<dynamic> getDeliveries() async {
-    String api = "${FlutterConfig.get("SERVER_ADDRESS")}/api/delivery/all";
+    String api = "${FlutterConfig.get("SERVER_ADDRESS")}/api/delivery/";
     final response = await get(api);
     // print(response.body["data"]);
     if (response.hasError) {
