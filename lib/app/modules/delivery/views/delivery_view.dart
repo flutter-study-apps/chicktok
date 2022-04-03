@@ -192,18 +192,18 @@ class DeliveryView extends GetView<DeliveryController> {
                                     onPressed: () =>
                                         controller.addNewDeliveryItemRow(
                                       NewDeliveryProduct(
-                                          productController
-                                              .products.value.products![0],
-                                          // Product(
-                                          //   id: 1,
-                                          //   description:
-                                          //       'Roasted chicken and marinated using secret ingredients',
-                                          //   name: 'Roast Chicken',
-                                          //   price: 22511,
-                                          // ),
-                                          0
-                                          // rnd.nextInt(90) + 10,
-                                          ),
+                                        productController
+                                            .products.value.products![0],
+                                        // Product(
+                                        //   id: 1,
+                                        //   description:
+                                        //       'Roasted chicken and marinated using secret ingredients',
+                                        //   name: 'Roast Chicken',
+                                        //   price: 22511,
+                                        // ),
+                                        // 0
+                                        // rnd.nextInt(90) + 10,
+                                      ),
                                     ),
                                     child: Icon(Icons.add),
                                   )),
@@ -305,52 +305,51 @@ class DeliveryView extends GetView<DeliveryController> {
                                         SizedBox(width: 5),
                                         Expanded(
                                           flex: 2,
-                                          child: Obx(
-                                            () => Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  border: Border.all(),
-                                                  borderRadius:
-                                                      BorderRadius.circular(3)),
-                                              height: 50,
-                                              child: TextFormField(
-                                                autovalidateMode:
-                                                    AutovalidateMode.always,
-                                                validator: (value) {
-                                                  if (value == null ||
-                                                      value.isEmpty) {
-                                                    return 'Qty';
-                                                  }
-                                                  return null;
-                                                },
-                                                decoration: InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.all(10),
-                                                  border: InputBorder.none,
-                                                ),
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                inputFormatters: <
-                                                    TextInputFormatter>[
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly
-                                                ], // On
-                                                textAlign: TextAlign.center,
-                                                controller: controller
-                                                        .newDeliveriescontrollers
-                                                        .value[
-                                                    controller.newDelivery.value
-                                                        .deliveryProducts!
-                                                        .indexOf(e)],
-                                                onChanged: (_) => controller
-                                                    .updateNewDeliveryProduct(
-                                                        index: controller
-                                                            .newDelivery
-                                                            .value
-                                                            .deliveryProducts!
-                                                            .indexOf(e),
-                                                        qtyRqw: _),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border.all(),
+                                                borderRadius:
+                                                    BorderRadius.circular(3)),
+                                            height: 50,
+                                            child: TextFormField(
+                                              autovalidateMode:
+                                                  AutovalidateMode.always,
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Qty';
+                                                }
+                                                return null;
+                                              },
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.all(10),
+                                                border: InputBorder.none,
                                               ),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              inputFormatters: <
+                                                  TextInputFormatter>[
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly
+                                              ], // On
+                                              textAlign: TextAlign.center,
+                                              // controller: controller
+                                              //         .newDeliveriescontrollers
+                                              //         .value[
+                                              //     controller.newDelivery.value
+                                              //         .deliveryProducts!
+                                              //         .indexOf(e)],
+                                              controller: e.productController,
+                                              onChanged: (_) => controller
+                                                  .updateNewDeliveryProduct(
+                                                      index: controller
+                                                          .newDelivery
+                                                          .value
+                                                          .deliveryProducts!
+                                                          .indexOf(e),
+                                                      qtyRqw: _),
                                             ),
                                           ),
                                         ),
@@ -365,6 +364,13 @@ class DeliveryView extends GetView<DeliveryController> {
                       ],
                     ),
                   ),
+                ),
+                SliverToBoxAdapter(
+                  child: ElevatedButton.icon(
+                      onPressed: () =>
+                          controller.storeNewDelivery(DeliveryDetails),
+                      icon: Icon(Icons.add),
+                      label: Text('Add')),
                 ),
               ],
             ),

@@ -18,7 +18,7 @@ class Delivery {
       this.products});
 
   Delivery.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = int.parse(json['id']);
     deliveredBy = json['deliveredBy'];
     recievedBy = json['recievedBy'];
     changeFund = double.parse(json['changeFund'].toString());

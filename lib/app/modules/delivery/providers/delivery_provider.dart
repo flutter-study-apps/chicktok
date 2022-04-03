@@ -1,3 +1,4 @@
+import 'package:chicktok/app/data/models/new_delivery_product_model.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/delivery_model.dart';
@@ -27,6 +28,10 @@ class DeliveryProvider extends GetConnect {
       print('good api in getproducts provider');
       return response;
     }
+  }
+
+  Future storeDelivery(DeliveryDetails newDelivery) async {
+    print(newDelivery);
   }
 
   Future<Delivery?> getDelivery(int id) async {

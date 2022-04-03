@@ -44,6 +44,7 @@ class ProductsController extends GetxController with StateMixin {
           isLoading.value = false;
         }
       } catch (e) {
+        print('error in product stream contrller');
         print(e);
         // isLoading.value = true;
 
