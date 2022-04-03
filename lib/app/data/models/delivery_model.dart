@@ -2,7 +2,7 @@ class Delivery {
   int? id;
   String? deliveredBy;
   String? recievedBy;
-  int? changeFund;
+  double? changeFund;
   String? note;
 
   String? createdAt;
@@ -21,7 +21,7 @@ class Delivery {
     id = json['id'];
     deliveredBy = json['deliveredBy'];
     recievedBy = json['recievedBy'];
-    changeFund = json['changeFund'];
+    changeFund = double.parse(json['changeFund']);
     note = json['note'];
     createdAt = json['createdAt'];
     if (json['products'] != null) {
@@ -53,9 +53,9 @@ class Products {
   String? updatedAt;
   String? name;
   String? description;
-  int? price;
-  int? qtyRaw;
-  int? qtyCook;
+  double? price;
+  double? qtyRaw;
+  double? qtyCook;
   String? img;
   Pivot? pivot;
 
@@ -77,9 +77,9 @@ class Products {
     updatedAt = json['updated_at'];
     name = json['name'];
     description = json['description'];
-    price = json['price'];
-    qtyRaw = json['qty_raw'];
-    qtyCook = json['qty_cook'];
+    price = double.parse(json['price']);
+    qtyRaw = double.parse(json['qty_raw']);
+    qtyCook = double.parse(json['qty_cook']);
     img = json['img'];
     pivot = json['pivot'] != null ? Pivot?.fromJson(json['pivot']) : null;
   }
@@ -111,9 +111,9 @@ class Pivot {
   Pivot({this.deliveryId, this.productId, this.quantity, this.createdAt});
 
   Pivot.fromJson(Map<String, dynamic> json) {
-    deliveryId = json['delivery_id'];
-    productId = json['product_id'];
-    quantity = json['quantity'];
+    deliveryId = int.parse(json['delivery_id'].toString());
+    productId = int.parse(json['product_id'].toString());
+    quantity = int.parse(json['quantity']);
     createdAt = json['created_at'];
   }
 

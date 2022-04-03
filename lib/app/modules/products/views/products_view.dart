@@ -27,7 +27,7 @@ class ProductsView extends GetView<ProductsController> {
                       color: Colors.amber,
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 17,
                     ),
                     Text('Loading List of Products'),
                     // Text(controller.errorText.value),
@@ -86,71 +86,53 @@ class ProductsView extends GetView<ProductsController> {
                                         children: [
                                           Flexible(
                                             child: Text(
-                                              productController.products.value
-                                                  .products![index].name
-                                                  .toString(),
+                                              '${productController.products.value.products![index].name.toString()} (${productController.products.value.products![index].price})',
                                               style: InventoryCardsText()
                                                   .copyWith(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 14),
-                                              // textAlign: TextAlign.center,
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      Text(
-                                        "P${productController.products.value.products![index].price.toString()}",
-                                        style: InventoryCardsText().copyWith(
-                                          fontWeight: FontWeight.w100,
-                                          fontSize: 20,
-                                        ),
-                                      ),
                                       Divider(
                                         color: Colors.white,
+                                        height: 5,
                                       ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Fresh: ${productController.products.value.products![index].qtyRaw!}',
-                                            style: InventoryCardsText()
-                                                .copyWith(fontSize: 12),
-                                          ),
-                                          Text(
-                                            'Cooked: ${productController.products.value.products![index].qtyCook!}',
-                                            style: InventoryCardsText()
-                                                .copyWith(fontSize: 12),
-                                          ),
-                                          Divider(
-                                            color: Colors.white,
-                                          ),
-                                          Text(
-                                            // 'STOCKS: ${productController.products.value.products![index].qtyRaw}',
-                                            'Total: ${productController.products.value.products![index].qtyRaw! + productController.products.value.products![index].qtyCook!}',
-                                            style: InventoryCardsText()
-                                                .copyWith(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                          ),
-                                        ],
+                                      Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Fresh: ${productController.products.value.products![index].qtyRaw!}',
+                                              style: InventoryCardsText()
+                                                  .copyWith(fontSize: 12),
+                                            ),
+                                            Text(
+                                              'Cooked: ${productController.products.value.products![index].qtyCook!}',
+                                              style: InventoryCardsText()
+                                                  .copyWith(fontSize: 12),
+                                            ),
+                                            Divider(
+                                              color: Colors.white,
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              // 'STOCKS: ${productController.products.value.products![index].qtyRaw}',
+                                              'Total: ${productController.products.value.products![index].qtyRaw! + productController.products.value.products![index].qtyCook!}',
+                                              style: InventoryCardsText()
+                                                  .copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-
-                                      // Row(
-                                      //   mainAxisAlignment:
-                                      //       MainAxisAlignment.center,
-                                      //   children: [
-                                      //     Text(
-                                      //       'Sales: 35',
-                                      //       style:
-                                      //           InventoryCardsText().copyWith(),
-                                      //     ),
-                                      //   ],
-                                      // )
-                                      // Text(data.products[index].description.toString()),
                                     ],
                                   ),
                                 ),

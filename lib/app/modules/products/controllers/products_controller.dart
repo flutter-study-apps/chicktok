@@ -42,7 +42,9 @@ class ProductsController extends GetxController with StateMixin {
         products.value = currentProduct;
         isLoading.value = false;
       } catch (e) {
-        isLoading.value = true;
+        print(e);
+        // isLoading.value = true;
+
       }
     }
   }

@@ -35,7 +35,7 @@ class Product {
   int? id;
   String? name;
   String? description;
-  int? price;
+  double? price;
   // int? stock;
   double? qtyRaw;
   double? qtyCook;
@@ -54,9 +54,9 @@ class Product {
     id = json['id'];
     name = json['name'];
     description = json['description'];
-    price = json['price'];
-    qtyRaw = json['qty_raw'].toDouble();
-    qtyCook = json['qty_cook'].toDouble();
+    price = double.parse(json['price']);
+    qtyRaw = double.parse(json['qty_raw']);
+    qtyCook = double.parse(json['qty_cook']);
     img = json['img'];
   }
 
