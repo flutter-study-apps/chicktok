@@ -54,9 +54,9 @@ class Product {
     id = json['id'];
     name = json['name'];
     description = json['description'];
-    price = double.parse(json['price']);
-    qtyRaw = double.parse(json['qty_raw']);
-    qtyCook = double.parse(json['qty_cook']);
+    price = double.parse(json['price'].toString());
+    qtyRaw = double.parse(json['qty_raw'].toString());
+    qtyCook = double.parse(json['qty_cook'].toString());
     img = json['img'];
   }
 

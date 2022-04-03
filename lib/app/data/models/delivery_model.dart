@@ -21,7 +21,7 @@ class Delivery {
     id = json['id'];
     deliveredBy = json['deliveredBy'];
     recievedBy = json['recievedBy'];
-    changeFund = double.parse(json['changeFund']);
+    changeFund = double.parse(json['changeFund'].toString());
     note = json['note'];
     createdAt = json['createdAt'];
     if (json['products'] != null) {
@@ -77,9 +77,9 @@ class Products {
     updatedAt = json['updated_at'];
     name = json['name'];
     description = json['description'];
-    price = double.parse(json['price']);
-    qtyRaw = double.parse(json['qty_raw']);
-    qtyCook = double.parse(json['qty_cook']);
+    price = double.parse(json['price'].toString());
+    qtyRaw = double.parse(json['qty_raw'].toString());
+    qtyCook = double.parse(json['qty_cook'].toString());
     img = json['img'];
     pivot = json['pivot'] != null ? Pivot?.fromJson(json['pivot']) : null;
   }
@@ -113,7 +113,7 @@ class Pivot {
   Pivot.fromJson(Map<String, dynamic> json) {
     deliveryId = int.parse(json['delivery_id'].toString());
     productId = int.parse(json['product_id'].toString());
-    quantity = int.parse(json['quantity']);
+    quantity = int.parse(json['quantity'].toString());
     createdAt = json['created_at'];
   }
 

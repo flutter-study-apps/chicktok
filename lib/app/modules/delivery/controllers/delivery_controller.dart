@@ -61,6 +61,7 @@ class DeliveryController extends GetxController {
 
         isLoading.value = false;
       } catch (e) {
+        print(e);
         // isLoading.value = true;
       }
     }

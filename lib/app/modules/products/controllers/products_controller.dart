@@ -40,7 +40,9 @@ class ProductsController extends GetxController with StateMixin {
         Map<String, dynamic> body = response.body;
         Products currentProduct = Products.fromJson(body);
         products.value = currentProduct;
-        isLoading.value = false;
+        if (products.value.products!.isNotEmpty) {
+          isLoading.value = false;
+        }
       } catch (e) {
         print(e);
         // isLoading.value = true;
