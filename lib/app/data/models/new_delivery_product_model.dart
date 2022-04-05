@@ -6,6 +6,13 @@ class NewDeliveryProduct {
 
   TextEditingController? productController;
   NewDeliveryProduct(this.product, {this.productController});
+
+  Map<String, dynamic> toJson(NewDeliveryProduct deliveryProduct) {
+    final data = <String, dynamic>{};
+    data['id'] = deliveryProduct.product.id;
+    data['quantity'] = deliveryProduct.product.qtyRaw;
+    return data;
+  }
 }
 
 class DeliveryDetails {

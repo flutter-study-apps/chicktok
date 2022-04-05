@@ -119,29 +119,33 @@ class DeliveryController extends GetxController {
 
   void addNewDeliveryItemRow(NewDeliveryProduct val) {
     final controller = TextEditingController();
-    // controller.text = val.raw.toString();
 
     val.productController = controller;
-    val.product.qtyRaw = 0;
-    controller.text = 0.toString();
+    // val.product.qtyRaw = 0;
+    // controller.text = 0.toString();
+    //for test data
+    controller.text = val.product.qtyRaw.toString();
     newDelivery.value.deliveryProducts?.add(val);
     newDeliveriescontrollers.add(controller);
   }
 
   void storeNewDelivery(DeliveryDetails) async {
-    print(DeliveryDetails);
+    // print(DeliveryDetails);
     if (newDelivery.value.deliveryProducts?.isNotEmpty ?? false) {
       try {
         var response =
             await DeliveryProvider().storeDelivery(newDelivery.value);
-      } catch (e) {}
+        print(response);
+      } catch (e) {
+        print(e);
+      }
     }
   }
 
   @override
   void onInit() async {
     super.onInit();
-    deliveriesStreamControllerController.value.addStream(deliveryStream());
+    // deliveriesStreamControllerController.value.addStream(deliveryStream());
     newDelivery.value.deliveryDate = dateFormatter.format(now).toString();
     newDelivery.value.deliveryDate = timeFormatter.format(now).toString();
 

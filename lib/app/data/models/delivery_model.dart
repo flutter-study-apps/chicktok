@@ -1,3 +1,5 @@
+import 'package:chicktok/app/data/models/new_delivery_product_model.dart';
+
 class Delivery {
   int? id;
   String? deliveredBy;
@@ -32,16 +34,18 @@ class Delivery {
     }
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(DeliveryDetails deliveryData) {
     final data = <String, dynamic>{};
-    data['id'] = id;
-    data['deliveredBy'] = deliveredBy;
-    data['recievedBy'] = recievedBy;
-    data['changeFund'] = changeFund;
-    data['note'] = note;
+    // data['id'] = deliveryDataid;
+    data['deliveredBy'] = deliveryData.deliveredBy;
+    data['recievedBy'] = deliveryData.recievedby;
+    data['changeFund'] = deliveryData.changeFund;
+    data['note'] = deliveryData.deliveryNote;
     data['createdAt'] = createdAt;
-    if (products != null) {
-      data['products'] = products!.map((v) => v.toJson()).toList();
+    if (deliveryData.deliveryProducts != null) {
+      // data['products'] = products!.map((v) => v.toJson()).toList();
+      data['products'] =
+          deliveryData.deliveryProducts!.map((v) => v.toJson(v)).toList();
     }
     return data;
   }
