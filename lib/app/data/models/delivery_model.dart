@@ -20,12 +20,12 @@ class Delivery {
       this.products});
 
   Delivery.fromJson(Map<String, dynamic> json) {
-    id = int.parse(json['id']);
-    deliveredBy = json['deliveredBy'];
-    recievedBy = json['recievedBy'];
+    id = int.parse(json['id'].toString());
+    deliveredBy = json['deliveredBy'].toString();
+    recievedBy = json['recievedBy'].toString();
     changeFund = double.parse(json['changeFund'].toString());
-    note = json['note'];
-    createdAt = json['createdAt'];
+    note = json['note'].toString();
+    createdAt = json['createdAt'].toString();
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {

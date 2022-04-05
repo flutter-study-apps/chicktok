@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:chicktok/app/data/models/new_delivery_product_model.dart';
 import 'package:chicktok/app/modules/products/controllers/products_controller.dart';
 import 'package:chicktok/app/modules/products/product_model.dart';
+import 'package:chicktok/app/widgets/widget_styles.dart';
 import 'package:chicktok/app/widgets/widget_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -71,12 +72,35 @@ class DeliveryView extends GetView<DeliveryController> {
                               children: [
                                 Expanded(
                                   flex: 1,
-                                  child: ChkTkTextField(
-                                    initialVal: controller.deliveredBy.value,
+                                  child:
+
+                                      // ChkTkTextField(
+                                      //   txtControllerVal: controller
+                                      //       .textControllerDeliveredBy.value,
+                                      //   initialVal: controller
+                                      //       .textControllerDeliveredBy.value.text,
+                                      //   height: 50,
+                                      //   myLabel: 'Delivered By',
+                                      //   myHint: "Person who delivered",
+                                      //   mybgColor: Colors.amber[400]!,
+                                      // ),
+                                      Container(
                                     height: 50,
-                                    myLabel: 'Delivered By',
-                                    myHint: "Person who delivered",
-                                    mybgColor: Colors.amber[400]!,
+                                    // decoration: BoxDecoration(),
+                                    child: TextField(
+                                      controller: controller
+                                          .textControllerDeliveredBy.value,
+                                      decoration: WidgetStyles()
+                                          .ChktkTextFieldDecoration(
+                                        myLabel: 'Delivered By',
+                                        myHint: "Person who delivered",
+                                        mybgColor: Colors.amber[400]!,
+                                      ),
+                                      // height: 50,
+                                      // myLabel: 'Recieved By',
+                                      // myHint: 'Person who recieved',
+                                      // mybgColor: Colors.amber[400]!,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -84,18 +108,60 @@ class DeliveryView extends GetView<DeliveryController> {
                                 ),
                                 Expanded(
                                   flex: 1,
-                                  child: ChkTkTextField(
-                                    initialVal: controller.recievedBy.value,
+                                  child: Container(
                                     height: 50,
-                                    myLabel: 'Recieved By',
-                                    myHint: 'Person who recieved',
-                                    mybgColor: Colors.amber[400]!,
+                                    // decoration: BoxDecoration(),
+                                    child: TextField(
+                                      controller: controller
+                                          .textControllerrecievedBy.value,
+                                      decoration: WidgetStyles()
+                                          .ChktkTextFieldDecoration(
+                                        myLabel: 'Recieved By',
+                                        myHint: 'Person who recieved',
+                                        mybgColor: Colors.amber[400]!,
+                                      ),
+                                      // height: 50,
+                                      // myLabel: 'Recieved By',
+                                      // myHint: 'Person who recieved',
+                                      // mybgColor: Colors.amber[400]!,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ],
                         ),
+                        // SizedBox(height: 10),
+                        // Column(
+                        //   mainAxisSize: MainAxisSize.max,
+                        //   children: [
+                        //     Row(
+                        //       children: [
+                        //         Expanded(
+                        //           child: ChkTkTextField(
+                        //             initialVal: controller.deliveryDate.value,
+                        //             height: 50,
+                        //             myLabel: 'Date',
+                        //             myHint: 'Enter the Date',
+                        //             mybgColor: Colors.amber[400]!,
+                        //           ),
+                        //         ),
+                        //         SizedBox(
+                        //           width: 5,
+                        //         ),
+                        //         Expanded(
+                        //           child: ChkTkTextField(
+                        //             initialVal: controller.deliveryTime.value,
+                        //             height: 50,
+                        //             myLabel: 'Time',
+                        //             myHint: 'Enter the Time',
+                        //             mybgColor: Colors.amber[400]!,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(height: 10),
                         Column(
                           mainAxisSize: MainAxisSize.max,
@@ -103,57 +169,49 @@ class DeliveryView extends GetView<DeliveryController> {
                             Row(
                               children: [
                                 Expanded(
-                                  child: ChkTkTextField(
-                                    initialVal: controller.deliveryDate.value,
+                                  child: Container(
                                     height: 50,
-                                    myLabel: 'Date',
-                                    myHint: 'Enter the Date',
-                                    mybgColor: Colors.amber[400]!,
+                                    child: TextField(
+                                      controller: controller
+                                          .textControllerChangeFund.value,
+                                      decoration: WidgetStyles()
+                                          .ChktkTextFieldDecoration(
+                                        myLabel: 'Change Fund',
+                                        myHint: 'Enter Change Fund Amount',
+                                        mybgColor: Colors.amber[400]!,
+                                      ),
+                                      // height: 50,
+                                      // myLabel: 'Recieved By',
+                                      // myHint: 'Person who recieved',
+                                      // mybgColor: Colors.amber[400]!,
+                                    ),
                                   ),
+
+                                  // ChkTkTextField(
+                                  //   initialVal:
+                                  //       controller.changeFund.value.toString(),
+                                  //   myLabel: 'Change Fund',
+                                  //   height: 50,
+                                  //   myHint: 'Enter Change Fund Amount',
+                                  //   mybgColor: Colors.amber[400]!,
+                                  // ),
                                 ),
                                 SizedBox(
                                   width: 5,
                                 ),
                                 Expanded(
-                                  child: ChkTkTextField(
-                                    initialVal: controller.deliveryTime.value,
+                                  child: Container(
                                     height: 50,
-                                    myLabel: 'Time',
-                                    myHint: 'Enter the Time',
-                                    mybgColor: Colors.amber[400]!,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: ChkTkTextField(
-                                    initialVal:
-                                        controller.changeFund.value.toString(),
-                                    myLabel: 'Change Fund',
-                                    height: 50,
-                                    myHint: 'Enter Change Fund Amount',
-                                    mybgColor: Colors.amber[400]!,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Expanded(
-                                  child: ChkTkTextField(
-                                    initialVal: controller.note.value,
-                                    height: 50,
-                                    myLabel: 'Note',
-                                    myHint:
-                                        'Enter more details about the delivery',
-                                    mybgColor: Colors.amber[400]!,
+                                    child: TextField(
+                                      controller:
+                                          controller.textControllerNote.value,
+                                      decoration: WidgetStyles()
+                                          .ChktkTextFieldDecoration(
+                                        myLabel: 'Delivery Note',
+                                        myHint: 'Enter Notes Here',
+                                        mybgColor: Colors.amber[400]!,
+                                      ),
+                                    ),
                                   ),
                                 )
                               ],
@@ -367,8 +425,7 @@ class DeliveryView extends GetView<DeliveryController> {
                 ),
                 SliverToBoxAdapter(
                   child: ElevatedButton.icon(
-                      onPressed: () =>
-                          controller.storeNewDelivery(DeliveryDetails),
+                      onPressed: () => controller.storeNewDelivery(),
                       icon: Icon(Icons.add),
                       label: Text('Add')),
                 ),
