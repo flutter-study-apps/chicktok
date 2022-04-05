@@ -39,9 +39,9 @@ class Delivery {
     // data['id'] = deliveryDataid;
     data['deliveredBy'] = deliveryData.deliveredBy;
     data['recievedBy'] = deliveryData.recievedby;
-    data['changeFund'] = deliveryData.changeFund;
-    data['note'] = deliveryData.deliveryNote;
-    data['createdAt'] = createdAt;
+    data['changeFund'] = deliveryData.changeFund.toString();
+    data['note'] = deliveryData.deliveryNote.toString();
+    data['createdAt'] = createdAt.toString();
     if (deliveryData.deliveryProducts != null) {
       // data['products'] = products!.map((v) => v.toJson()).toList();
       data['products'] =

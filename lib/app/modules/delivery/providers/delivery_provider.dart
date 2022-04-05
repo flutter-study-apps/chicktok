@@ -34,11 +34,25 @@ class DeliveryProvider extends GetConnect {
   }
 
   Future storeDelivery(DeliveryDetails newDelivery) async {
-    Map<String, dynamic> data = Delivery().toJson(newDelivery);
+    try {
+      Map<String, dynamic> data = Delivery().toJson(newDelivery);
 
-    String api = "${FlutterConfig.get("SERVER_ADDRESS")}/api/delivery/add";
-    final response = await post(api, Delivery().toJson(newDelivery));
-    // http.Response response = await http.post(
+      String api = "${FlutterConfig.get("SERVER_ADDRESS")}/api/delivery/add";
+      // final response = await post(api, Delivery().toJson(newDelivery));
+      final response = await http.post(
+        Uri.parse(api),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(data),
+      );
+
+      return response;
+      // http.Response response = await http.post(
+    } catch (e) {
+      return e;
+    }
+
     //   Uri.parse(api),
     //   body: data,
     // );
@@ -52,7 +66,7 @@ class DeliveryProvider extends GetConnect {
     // );
 
     // print(response);
-    return response;
+
     // final response = await get(api);
     // print(response.body["data"]);
     // if (response.hasError) {
